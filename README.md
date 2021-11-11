@@ -20,6 +20,13 @@ TODO:
 - test out user interactions
 - If games are changed, redundant roles will need to be removed from the server and the users.
 
+Issues:
+- The game module loads bot on "node deploy.js" and on "botStart.js". Which can be cumbersome if 100s of games are added.
+
+
+Features:
+- Get the number of active users with a role, how much growth it has, how many people were looking for a game. So you can figure out which games are most wanted and played.
+
 To invite the bot (this may change if the bot needs more or less permissions):
 https://discord.com/api/oauth2/authorize?client_id=907048337155432479&permissions=0&scope=bot%20applications.commands
 
@@ -28,9 +35,9 @@ Run instructions:
 2. Create an invite link for the bot with the "bot" and "application.commands" permissions in the 'Oauth2" tab in the Discord developer portal dashboard.
 3. Run "node deploy.js", to make all commands usable.
 - Every time the "deploy.js" file is run, the new commands become active, no need for restart (tested on Discord API version 9).
-4. Run "node bot.js". To make the bot active
+4. Run "node botStart.js". To make the bot active.
 
 folders:
 - commands - contains one "/" command per file, gets loaded into "bot.js" when it runs.
 - events - contains all events to which the bot listens, one per file.
-- responses - reactions of the bot to all commands, also used to precompile large lists (currently for games), so it can scale and be fast later.
+- responses - reactions of the bot to all commands, also used to precompile large lists (currently list of games), so it can scale and be fast later, it triggers on both "node deploy.js" and "node bot.js".
