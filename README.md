@@ -16,8 +16,11 @@ TODO:
 https://discordjs.guide/creating-your-bot/creating-commands.html#the-problem-with-if-else-if
 - test out user interactions
 
+To invite the bot (this may change if the bot needs more or less permissions):
+https://discord.com/api/oauth2/authorize?client_id=907048337155432479&permissions=0&scope=bot%20applications.commands
+
 Run instructions:
 1. Rename the "example-config.json" file to "config.json", replace with appropriate variables.
 2. Create an invite link for the bot with the "bot" and "application.commands" permissions in the 'Oauth2" tab in the Discord developer portal dashboard.
-3. Run "node deploy-commands.js"
+3. Run "node commands/deploy.js"
 4. Run "node bot.js".
