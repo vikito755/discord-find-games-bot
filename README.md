@@ -8,6 +8,8 @@ More complex command options: https://discordjs.guide/interactions/registering-s
 
 Discord guide progress - https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot
 
+https://discordjs.guide/popular-topics/faq.html#how-do-i-kick-a-user
+
 
 <h1>Run instructions:</h1>
 
