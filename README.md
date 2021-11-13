@@ -1,6 +1,10 @@
 # discord-find-games-discord-bot
 Discord bot to help people find people to play video games with.
 
+Discord js docs:
+https://discord.js.org/#/docs/main/stable/class/CommandInteractionOptionResolver
+
+
 I need to come back to this (user interaction and guild IDs):
 https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot
 

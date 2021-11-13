@@ -7,7 +7,7 @@ module.exports = {
 	execute(interaction) {
 		// Log the games and interactions to form statistics about who plays what. Add interaction tracker for the event when people are looking for a game.
 
-		if (!interaction.isButton()) return;
+		if (!interaction) return;
 		console.log(interaction);
 		console.log(interaction.user);
 		console.log(interaction.user)
