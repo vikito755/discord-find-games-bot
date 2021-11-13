@@ -31,18 +31,45 @@ https://discordjs.guide/creating-your-bot/creating-commands.html#the-problem-wit
 
 
 <h2>TODO:</h2>
-- Refactor the file in the "events" folder, see if you need it.
-- test out user interactions
-- If games are changed, redundant roles will need to be removed from the server and the users.
+
+<h2>Daily dues</h2>
+- Preload the games from the "games.json".
+- For each game create a command
+ . When the user types "/lf_cs_go" or "lf CS: GO" (more likely as the names will be generated according to the "games.json")
+ . Each command needs to:
+ 1. Put the name of the user who wrote it into an array.
+    - This array will be used when another user types it. (How do you avoid multiple tags)
+    - This array will reset after a minute.
+    - The chat for these commands will have 5 minutes timeout to avoid spam.
+ 2. Start a 2 minute minute timer (afte which the array resets, the time to reset might need adjustments).
+ 3. Send a message tagging the user who invoked the command and the other users listed in the array.
+ 4. Reset the timer.
+
+
+ Try to do it with 1 command at first, then scale it up with a for loop.
+
+<h3> Later development notes</h3>
+
+- A bot restart is needed after a new command is added. Here is how it can be done: https://stackoverflow.com/questions/48601463/how-do-you-make-a-command-which-restarts-your-bot-in-discord-js
+- Add it in the voting and changes scripts later
+ Later:
+  - Commands for the admins to add and remove games, from the "games.json" file or the future database.
+  - Community voting to add games, to sthe "games.json" file or the future database.
+
+
+
 
 <h2>Issues:</h2>
 - The game module loads bot on "node deploy.js" and on "botStart.js". Which can be cumbersome if 100s of games are added.
 
 
-<h2>Features:</h2>
+<h2>Features to be considered:</h2>
 - Get the number of active users with a role, how much growth it has, how many people were looking for a game. So you can figure out which games are most wanted and played.
 
 <h2>Folders:</h2>
 - commands - contains one "/" command per file, gets loaded into "bot.js" when it runs.
 - events - contains all events to which the bot listens, one per file.
 - responses - reactions of the bot to all commands, also used to precompile large lists (currently list of games), so it can scale and be fast later, it triggers on both "node deploy.js" and "node bot.js".
+
+
+
