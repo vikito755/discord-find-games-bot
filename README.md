@@ -75,5 +75,7 @@ https://discordjs.guide/creating-your-bot/creating-commands.html#the-problem-wit
 - events - contains all events to which the bot listens, one per file.
 - responses - reactions of the bot to all commands, also used to precompile large lists (currently list of games), so it can scale and be fast later, it triggers on both "node deploy.js" and "node bot.js".
 
+<h2>Files:</h2>
+constants.json - constant variables I'd like to use across files.
 
 

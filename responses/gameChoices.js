@@ -7,6 +7,6 @@ allGames.map( game => {
     gameOptions.push([game, game]);
 });
 
-console.log(gameOptions)
+console.log("Game options loaded");
 
 module.exports.gameOptions = gameOptions;
