@@ -1,103 +1,126 @@
 // // const { Client, Intents, getRole, getMember, Message } = require('discord.js');
 // // const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 // const { MessageCollector } = require('discord.js');
-const { lookingForGameCommand } = require('../constants.json')
-// // let activeGames = [];
-
-// module.exports.run = {
-// 	name: 'interactionCreate',
-// 	execute(interaction) {
-// 		// Log the games and interactions to form statistics about who plays what. Add interaction tracker for the event when people are looking for a game.
-
-// 		if (!interaction.isCommand() && interaction.commandName === lookingForGameCommand) return;
-// 		const selectedGame = interaction.options._hoistedOptions[0].value;
-
-// 		const filter = m => m.content.includes('discord');
-		
-// 		const collector = interaction.channel.createMessageComponentCollector({ time: 1500 });
-		
-// 		console.log(interaction);
-
-// 		collector.on('collect', m => {
-// 			console.log(`Collected ${m.content}`);
-// 			collector.collect(m.content);
-// 			console.log(`Collected ${m.content}`);
-// 		});
-
-// 		collector.on('end', collected => {
-// 			console.log(`Collected ${collected.size} items`);
-// 		});
-
-
-// 			// if ( !(selectedGame in activeGames)) {
-// 			// 	activeGames.push(selectedGame)
-// 			// }
-
-// 		// console.log(interaction);
-// 		// console.log(interaction.user);
-// 		// console.log(interaction.user)
-// 		console.log("Registered an 'lf' command")
-// 		console.log(`Game name from the interaction EVENT: ${selectedGame}`)
-// 		// console.log(interaction)
-// 		// console.log(interaction.commandName);
-// 		interaction.reply
-// 	},
-// };
+const { MessageCollector } = require('discord.js');
+const { secondsBeforeLobbyReset, maximumPlayers, lookingForGameCommand } = require('../constants.json')
 
 
 
+let usersWantingToPlayIDs = [];
 
 
+const clearUsers = () => {
+	usersWantingToPlayIDs = [];
+	console.log(usersWantingToPlayIDs)
+	console.log("Array emptied");
+}
 
 
+// let seconds = secondsBeforeLobbyReset * 1000;
 
-
-
-
-
-
-
+let seconds = secondsBeforeLobbyReset * 100000;
 module.exports = {
 	name: 'interactionCreate',
 	execute(interaction) {
-		// console.log(interaction);
+		// if ( !(interaction.isCommand() && interaction.commandName === lookingForGameCommand && interaction.options._hoistedOptions[0].value==="CS: GO")) {
+		// 	return
+		// }
+		const userIsNotSigneUp = !(usersWantingToPlayIDs.includes(interaction.user.id));
+		const noUsersInTheLobby = usersWantingToPlayIDs.length === 0;
+		const maxUsers = usersWantingToPlayIDs.length === maximumPlayers;
+
+
+
 		console.log("\n");
-		// if (!interaction.isCommand() && interaction.commandName === lookingForGameCommand) return;
-		if (interaction.isCommand() && interaction.commandName === lookingForGameCommand) {
-			console.log("LF command");
-			// console.log(interaction.commandName);
-			// console.log(lookingForGameCommand);
-
-			const filter = m => m.content.includes('looking');
-
-			const collector = interaction.channel.crcollectoreateMessageComponentCollector(filter, { time: 150 });
-			console.log("COLLECTOR registered");
-			console.log(collector);
-		
-			// console.log(interaction);
-
-			// collector.on('collect', m => {
-			// 	console.log(`Collected ${m.content}`);
-			// 	collector.collect(m.content);
-			// 	console.log(`Collected ${m.content}`);
-			// });
-
-			collector.handleCollect( (message) => {
-				console.log(message);
-			})
-
-			collector.on('end', collected => {
-				console.log(`Collected ${collected.size} items`);
-			});
-
-
-			// console.log(collector);
-		} else {
-			console.log("NOT lf command");
-			console.log(interaction.commandName);
-			console.log(lookingForGameCommand);
-			console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`);
+	
+		if (noUsersInTheLobby) {
+			setTimeout(clearUsers, seconds);
 		}
+		
+		if (userIsNotSigneUp) {
+			console.log('User has already signed up.');
+			usersWantingToPlayIDs.push(interaction.user.id)
+		}
+
+		if (maxUsers) {
+			clearUsers();
+		}
+
+		
+		
+
+		
+		console.log(usersWantingToPlayIDs);
+		
+		// if (messageCollector === undefined) {
+		// 	console.log("Inside the IF");
+		// 	console.log("\n");
+		// 	// console.log("Message collector is undefined.");
+		// 	// console.log(messageCollector);
+		// 	// console.log(typeof(messageCollector));
+		// 	const filter = m => m===m;
+		// 	messageCollector = interaction.channel.createMessageCollector(filter, { time: 15000})
+		// 	// console.log(`Message collector: ${messageCollector}`);
+
+		// 	console.log("Collector initialised");
+		// 	console.log("\n");
+
+
+		// 	messageCollector.on('collect', m => console.log(`Collected ${m.content}`));
+		// 	messageCollector.on('end', collected => console.log(`Collected ${collected.size} items`));
+		// 	console.log("Collector ended")
+
+		// } 
+
+		// console.log(interaction);
+		
+		// console.log("Collector ALREADY running");
+		// messageCollector.on('collect', m => {
+		// 	console.log(`Collected ${m}`);
+		// });
+
+		// messageCollector.on('end', collected => {
+		// 	console.log(`Collected ${collected.size} items`);
+		// });
+
+
+		
+
+		// if (messageCollector) {
+		// 	messageCollector = new MessageCollector({time: 15000});
+		// }
+		
+		// if (!interaction.isCommand() && interaction.commandName === lookingForGameCommand) return;
+		// if ( !(interaction.isCommand() && interaction.commandName === lookingForGameCommand && interaction.options._hoistedOptions[0].value==="CS: GO")) {
+
+
+		// if ( !(interaction.isCommand() && interaction.commandName === lookingForGameCommand && interaction.options._hoistedOptions[0].value==="CS: GO")) {
+		// 	return
+			
+		// } else {
+
+
+		// 		// let timer = setInterval(clearUsers, secondsBeforeLobbyReset * 1000);
+		// 		setTimeout(clearUsers, secondsBeforeLobbyReset * 1000);
+
+		// 		console.log("LF command");
+
+		// 		console.log(usersWantingToPlayIDs);
+				
+		// 		const selectedGame = interaction.options._hoistedOptions[0].value;
+		// 		console.log(selectedGame)
+
+
+		// 		usersWantingToPlayIDs.push(interaction.user.id);
+		// 		console.log(usersWantingToPlayIDs)
+				
+				
+		// 		interaction.channel.send(`<@${usersWantingToPlayIDs[0]}> ${selectedGame}`);
+
+
+
+			
+		// }
 		
 	},
 };

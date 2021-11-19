@@ -19,7 +19,6 @@ for (const file of eventFiles) {
 	}
 }
 
-
 // Loading up the commands from the "commands directory."
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
