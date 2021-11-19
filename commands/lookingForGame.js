@@ -18,13 +18,7 @@ module.exports = {
             ),
 	async execute(interaction) {   
         const selectedGame = interaction.options._hoistedOptions[0].value;
-
-        // Create a message collector
-        // const filter = m => m.content.includes('discord');
-        // const collector = interaction.channel.createMessageCollector({ filter, time: 15000 });
-        // console.log("Collector registered")
-        // collector.on('collect', m => console.log(`Collected ${m.content}`));
-        // collector.on('end', collected => console.log(`Collected ${collected.size} items`));
-		await interaction.reply( {content: `${interaction.user} discord is looking to play ${selectedGame}`});
+		await interaction.channel.send( {content: `${interaction.user} discord is looking to play ${selectedGame}`});
+        console.log(`Registered: ${selectedGame}`);
     },
 };

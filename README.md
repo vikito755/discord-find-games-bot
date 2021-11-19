@@ -60,7 +60,8 @@ https://discordjs.guide/creating-your-bot/creating-commands.html#the-problem-wit
   - Commands for the admins to add and remove games, from the "games.json" file or the future database.
   - Community voting to add games, to sthe "games.json" file or the future database.
 
-
+<h2>Side notes:</h2>
+- Limit the bot to 1 channel and have a slow mode for 5 minutes, to avoid spam.
 
 
 <h2>Issues:</h2>
