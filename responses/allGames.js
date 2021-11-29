@@ -1,8 +1,9 @@
 const { allGames } = require('../games.json')
 
-// Precompiling all lists on deploy so they are not getting calculated every time.
-let allGamesResponse = `All games: \n ${allGames.join('\n\n')}`;
+let allGamesResponse = `All games: \n`;
 
-console.log('List of all games compiled.')
+Object.values(allGames).map( game => {
+    allGamesResponse += `${game.name} \n`
+});
 
 module.exports.allGamesResponse = allGamesResponse;
