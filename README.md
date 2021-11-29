@@ -14,6 +14,25 @@ Discord guide progress - https://discordjs.guide/preparations/setting-up-a-bot-a
 
 https://discordjs.guide/popular-topics/faq.html#how-do-i-kick-a-user
 
+<h2>User flow:</h2>
+Each "game" is an object with 3 parameters (everything is automated, nothins is imputted by the user):
+- Name (string)
+- amountOfPlayers (the maximum numbers of players for a game)
+- currentPlayers (array of player ID's)
+
+
+1. User writes "/lfg <predefined game>".
+- Gets put into an array.
+- A timer for 30 minutes starts.
+- When the timer runs out the user gets publicly pinged that the timer ran out.
+- The user's name gets popped out of the array.
+- If a user types "/lfg" and the maximum players is reached. Empty the array.
+- The call gets recorded with a date.
+2. Another user types "/lfg <predefined game>"
+- All users in the array. Get notified.
+- The new user gets notified.
+
+
 
 <h1>Run instructions:</h1>
 

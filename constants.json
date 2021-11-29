@@ -1,5 +1,5 @@
 {
-    "lookingForGameCommand": "lf",
+    "lookingForGameCommand": "lfg",
     "secondsBeforeLobbyReset": 600000,
     "maximumPlayers": 5
 }

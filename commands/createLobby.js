@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { gameOptions } = require('../responses/gameChoices')
 const { lookingForGameCommand } = require('../constants.json')
 const { Client, Collection, Intents } = require('discord.js');
+const { GameLobby } = require ('./objects/GameLobby');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -18,7 +19,17 @@ module.exports = {
             ),
 	async execute(interaction) {   
         const selectedGame = interaction.options._hoistedOptions[0].value;
-		await interaction.channel.send( {content: `${interaction.user} discord is looking to play ${selectedGame}`});
+        // console.log(newUser);
+
+        
+        const lobby = new GameLobby({game: "Lorem John", amountOfPlayers: 3});
+
+        // lobby.introduce();
+        console.log(" ");
+        console.log(" ");
+        
+        console.log(lobby.age());
+		await interaction.reply( {content: `${interaction.user} discord is looking to play ${selectedGame}`});
         console.log(`Registered: ${selectedGame}`);
     },
 };
