@@ -74,6 +74,7 @@ typings/
 
 #sensitive data
 config.json
+example-config.json
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
