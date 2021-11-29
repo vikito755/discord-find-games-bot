@@ -1,0 +1,17 @@
+{
+    "allGames": {
+        "Dota2": {
+            "maxPlayer": 5
+        },
+        "CS: GO": {
+            "maxPlayers": 5
+        },
+        "Rocket league": {
+            "maxPlayers": 4
+        }
+        
+        
+}
+
+    
+}

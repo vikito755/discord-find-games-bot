@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { gameOptions } = require('../responses/gameChoices')
 const { lookingForGameCommand } = require('../constants.json')
 const { Client, Collection, Intents } = require('discord.js');
-const { GameLobby } = require ('./objects/GameLobby');
+const { GameLobby } = require ('../objects/GameLobbies');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -22,13 +22,13 @@ module.exports = {
         // console.log(newUser);
 
         
-        const lobby = new GameLobby({game: "Lorem John", amountOfPlayers: 3});
+        // const lobby = new GameLobby({game: "Lorem John", amountOfPlayers: 3});
 
         // lobby.introduce();
-        console.log(" ");
-        console.log(" ");
+        // console.log(" ");
+        // console.log(" ");
         
-        console.log(lobby.age());
+        // console.log(lobby.age());
 		await interaction.reply( {content: `${interaction.user} discord is looking to play ${selectedGame}`});
         console.log(`Registered: ${selectedGame}`);
     },
