@@ -1,87 +1,43 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { gameOptions } = require('../responses/gameChoices')
-const { lookingForGameCommand } = require('../constants.json')
-const { Client, Collection, Intents } = require('discord.js');
-const { gameLobbies } = require ('../objects/gameLobbies');
+const { allGames } = require('../games.json')
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-
-module.exports = {
-	data: new SlashCommandBuilder()
-		.setName("testlfg")
-		.setDescription('Signal that you are looking to play.')
-        .addStringOption( option =>
-        option.setName("game")
-            .setDescription("Start typing the game you are looking to play and send it.")
-            .setRequired(true)
-            .addChoices(gameOptions)
-            ),
-	async execute(interaction) {   
-        const selectedGame = interaction.options._hoistedOptions[0].value;
-        // console.log(newUser);
-
-        // console.log(`Gmae lobbies: ${Object.keys(gameLobbies)}`);
-        // game,amountOfPlayers,currentPlayers
-        // console.log(`Game name: ${gameLobbies['game']}`);
-        // console.log(`Game PLAYERSMAX: ${gameLobbies['amountOfPlayers']}`);
-        // console.log(`Game currentPlayers: ${gameLobbies['currentPlayers']}`);
-        // console.log(`Game: ${Object.keys(gameLobbies)}`);
-        // console.log(`Game: ${Object.keys(gameLobbies)}`);
-
-        const selectedLobby = gameLobbies.find( lobby => {            
-            return lobby["game"] === selectedGame;
-        })
-
-        const numberOfQueuedPlayers = selectedLobby['currentPlayers'].length;
-        const currentUserId = interaction.user.id;
-        const palyersBeforeLobbyReset = selectedLobby['maxPlayers'] -1;
-
-        // const userNotInQueue = !selectedLobby['currentPlayers'].includes(`<@${currentUserId}>`)
-
-        // if ( userNotInQueue ) {
-            
-            
-            if (numberOfQueuedPlayers <= palyersBeforeLobbyReset) {
-                selectedLobby.addPlayer(currentUserId);
-                await interaction.reply( {content: `Current party for ${selectedGame} - ${selectedLobby['currentPlayers'].join(', ')}.`});
-            } 
-            // else if ( numberOfQueuedPlayers === selectedLobby['maxPlayers'] ){
-            else {
-                console.log("Empty the the queue here.");
-                selectedLobby.reset();
-                selectedLobby.addPlayer(currentUserId);
-                await interaction.reply(`Resetting the ${selectedGame} lobby and adding <@${currentUserId}> to it.`);                
-            } 
-           
-            
-            // console.log(selectedLobby['maxPlayers']);
-            // console.log(selectedLobby['currentPlayers']);
-            console.log(`IDENTIFIABLE USERS: ${selectedLobby['currentPlayers'].join(' ')}`);
-            console.log(`USER ALREADY IN QUEUE for ${selectedGame}`);
-        // } 
-
-        // else {
-            // await interaction.reply( {content: `You are already in queue for __**${selectedGame}**__ and will be tagged when other people join.`,
-            //  ephemeral: true});
-            
-        // }
-
-        // userNotInQueue
-            
-
+class GameLobby
+{
+    constructor(params)
+    {
+        this.game=params.game;
+        this.maxPlayers=params.maxPlayers;
+        this.currentPlayers = [];
         
-            
+        // console.log('Lobby class constructor loads UP! ');    
+    }
 
-        // Checks the current object
-        // console.log(selectedLobby['maxPlayers']);
-        // console.log(selectedLobby['currentPlayers']);
-        // console.log(interaction.user.id);
-        // selectedLobby.addPlayer(currentUserId);
-        // console.log(selectedLobby['currentPlayers']);
-        // interaction.channel.send(`<@${currentUserId}>`);
+    // Adds the user tag (based on id), to an array for later use.
+    addPlayer(playerID) {
+        this.currentPlayers.push(`<@${playerID}>`);
+      }
 
+    //   Empties the lobby.
+    reset() {
+        this.currentPlayers = [];
+    }
+}
+
+    // Array of GameLobby objects that get filtered later for a specific lobby.
+    let gameLobbies = [];
+
+    const numberOfGames = Object.keys(allGames).length;
+
+    for (let i = 0; i < numberOfGames; i++) {
+
+        let gameIdentifier = this[`${allGames[Object.keys(allGames)[i]].name}`];
         
-		// await interaction.reply( {content: `${interaction.user} discord is looking to play ${selectedGame}`});
-        console.log(`Registered: ${selectedGame}`);
-    },
-};
+        // Creates a game lobby object for each game.
+        gameIdentifier = new GameLobby({game: allGames[Object.keys(allGames)[i]].name, maxPlayers: allGames[Object.keys(allGames)[i]].maxPlayers});
+
+        gameLobbies.push(gameIdentifier);
+
+        // console.log(`GameLobby for ${gameIdentifier} loads up.`);
+        
+     }
+
+module.exports.gameLobbies = gameLobbies;
