@@ -8,7 +8,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName(lookingForGameCommand)
+		.setName("testlfg")
 		.setDescription('Signal that you are looking to play.')
         .addStringOption( option =>
         option.setName("game")
@@ -36,7 +36,7 @@ module.exports = {
         const currentUserId = interaction.user.id;
         const palyersBeforeLobbyReset = selectedLobby['maxPlayers'] -1;
 
-        const userNotInQueue = !selectedLobby['currentPlayersIDs'].includes(`<@${currentUserId}>`)
+        const userNotInQueue = !selectedLobby['currentPlayersIDs'].includes(currentUserId)
 
         if ( userNotInQueue ) {
             

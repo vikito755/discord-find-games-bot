@@ -1,5 +1,4 @@
 const { allGames } = require('../games.json')
-const { normaliseCommandName } = require('../utilities/names');
 
 class GameLobby
 {
@@ -7,54 +6,38 @@ class GameLobby
     {
         this.game=params.game;
         this.maxPlayers=params.maxPlayers;
-        this.currentPlayers = [];
+        this.currentPlayersIDs = [];
         
-        // console.log('constructor of GameLobby class called: ');
-        // console.log(
-        //     Object.keys(allGames).map( (game) => {
-        //         console.log(" ")
-        //         console.log("A GAME")
-        //     console.log(allGames[game]['name']);}));
-        // console.log(Object.keys(allGames));
-        // console.log(this.game+' is your game.');
-        // console.log(this.maxPlayers+' is your language');
+        // console.log('Lobby class constructor loads UP! ');    
     }
 
-    addPlayer() {
-        this.currentPlayers.push("New player ID");
+    // Adds the user tag (based on id), to an array for later use.
+    addPlayer(playerID) {
+        this.currentPlayersIDs.push(`<@${playerID}>`);
       }
+
+    //   Empties the lobby.
+    reset() {
+        this.currentPlayersIDs = [];
+    }
 }
 
-let test = [];
+    // Array of GameLobby objects that get filtered later for a specific lobby.
+    let gameLobbies = [];
 
+    const numberOfGames = Object.keys(allGames).length;
 
-//     Object.keys(allGames).map( (game) => {
-//         Object.assign( test, {game: new GameLobby({game: allGames[game].name, maxPlayers: allGames[game].maxPlayers})} );
+    for (let i = 0; i < numberOfGames; i++) {
 
-//         test +=  {...{game: new GameLobby({game: allGames[game].name, maxPlayers: allGames[game].maxPlayers})}} 
-//     });
-
-    for (var i = 0; i < Object.keys(allGames).length; i++) {
-
+        let gameIdentifier = this[`${allGames[Object.keys(allGames)[i]].name}`];
         
-        this[`${allGames[Object.keys(allGames)[i]].name}`] = new GameLobby({game: allGames[Object.keys(allGames)[i]].name, maxPlayers: allGames[Object.keys(allGames)[i]].maxPlayers});
+        // Creates a game lobby object for each game.
+        gameIdentifier = new GameLobby({game: allGames[Object.keys(allGames)[i]].name, maxPlayers: allGames[Object.keys(allGames)[i]].maxPlayers});
 
-        test.push(this[`${allGames[Object.keys(allGames)[i]].name}`]);
+        gameLobbies.push(gameIdentifier);
 
-        console.log(this[allGames[Object.keys(allGames)[i]].name])
+        // console.log(`GameLobby for ${gameIdentifier} loads up.`);
         
-        
-
-        // test.push(this[allGames[Object.keys(allGames)[i]].name]);
      }
 
-// allGames.map( game => {
-//     console.log(game);
-    
-//     console.log(allGames[game]);
-//     Object.assign(gameLobbies, new GameLobby({game: game, maxPlayers: 5 }));
-// })
-// console.log("  ");
-// console.log(gameLobbies);
-
-module.exports.GameLobbies = test;
+module.exports.gameLobbies = gameLobbies;
