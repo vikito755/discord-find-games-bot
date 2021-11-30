@@ -2,10 +2,9 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { gameOptions } = require('../responses/gameChoices')
 const { lookingForGameCommand } = require('../constants.json')
 const { Client, Collection, Intents } = require('discord.js');
-const { GameLobby } = require ('../objects/GameLobbies');
+const { GameLobbies } = require ('../objects/GameLobbies');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -21,7 +20,18 @@ module.exports = {
         const selectedGame = interaction.options._hoistedOptions[0].value;
         // console.log(newUser);
 
-        
+        // console.log(`Gmae lobbies: ${Object.keys(GameLobbies)}`);
+        // game,amountOfPlayers,currentPlayers
+        // console.log(`Game name: ${GameLobbies['game']}`);
+        // console.log(`Game PLAYERSMAX: ${GameLobbies['amountOfPlayers']}`);
+        // console.log(`Game currentPlayers: ${GameLobbies['currentPlayers']}`);
+        // console.log(`Game: ${Object.keys(GameLobbies)}`);
+        // console.log(`Game: ${Object.keys(GameLobbies)}`);
+        // game,amountOfPlayers,currentPlayers
+
+        // console.log(`The object for selected game: ${GameLobbies}`);
+
+        // console.log(`Object for selected games: ${Object.keys(GameLobbies[0])}`);
         // const lobby = new GameLobby({game: "Lorem John", amountOfPlayers: 3});
 
         // lobby.introduce();

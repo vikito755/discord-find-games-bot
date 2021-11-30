@@ -10,6 +10,12 @@ class GameLobby
         this.currentPlayers = [];
         
         console.log('constructor of GameLobby class called: ');
+        // console.log(
+        //     Object.keys(allGames).map( (game) => {
+        //         console.log(" ")
+        //         console.log("A GAME")
+        //     console.log(allGames[game]['name']);}));
+        // console.log(Object.keys(allGames));
         // console.log(this.game+' is your game.');
         // console.log(this.amountOfPlayers+' is your language');
     }
@@ -19,9 +25,25 @@ class GameLobby
       }
 }
 
-// const gameLobbies = {
+let test = ["asd"];
 
-// };
+
+//     Object.keys(allGames).map( (game) => {
+//         Object.assign( test, {game: new GameLobby({game: allGames[game].name, amountOfPlayers: allGames[game].maxPlayers})} );
+
+//         test +=  {...{game: new GameLobby({game: allGames[game].name, amountOfPlayers: allGames[game].maxPlayers})}} 
+//     });
+
+    for (var i = 0; i < Object.keys(allGames).length; i++) {
+
+        
+        this[allGames[Object.keys(allGames)[i]].name] = new GameLobby({game: allGames[Object.keys(allGames)[i]].name, amountOfPlayers: allGames[Object.keys(allGames)[i]].maxPlayers});
+        console.log(this[allGames[Object.keys(allGames)[i]].name])
+        
+        
+
+        // test.push(this[allGames[Object.keys(allGames)[i]].name]);
+     }
 
 // allGames.map( game => {
 //     console.log(game);
@@ -32,4 +54,4 @@ class GameLobby
 // console.log("  ");
 // console.log(gameLobbies);
 
-module.exports.GameLobby = GameLobby;
+module.exports.GameLobbies = test;
