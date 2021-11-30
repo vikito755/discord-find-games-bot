@@ -40,7 +40,7 @@ module.exports = {
 
         // console.log(Object.keys(GameLobbies[0]));
 
-        console.log(selectedLobby[0]['amountOfPlayers']);
+        console.log(selectedLobby[0]['maxPlayers']);
         console.log(selectedLobby[0]['currentPlayers']);
         selectedLobby[0].addPlayer();
         console.log(selectedLobby[0]['currentPlayers']);

@@ -6,7 +6,7 @@ class GameLobby
     constructor(params)
     {
         this.game=params.game;
-        this.amountOfPlayers=params.amountOfPlayers;
+        this.maxPlayers=params.maxPlayers;
         this.currentPlayers = [];
         
         // console.log('constructor of GameLobby class called: ');
@@ -17,7 +17,7 @@ class GameLobby
         //     console.log(allGames[game]['name']);}));
         // console.log(Object.keys(allGames));
         // console.log(this.game+' is your game.');
-        // console.log(this.amountOfPlayers+' is your language');
+        // console.log(this.maxPlayers+' is your language');
     }
 
     addPlayer() {
@@ -29,15 +29,15 @@ let test = [];
 
 
 //     Object.keys(allGames).map( (game) => {
-//         Object.assign( test, {game: new GameLobby({game: allGames[game].name, amountOfPlayers: allGames[game].maxPlayers})} );
+//         Object.assign( test, {game: new GameLobby({game: allGames[game].name, maxPlayers: allGames[game].maxPlayers})} );
 
-//         test +=  {...{game: new GameLobby({game: allGames[game].name, amountOfPlayers: allGames[game].maxPlayers})}} 
+//         test +=  {...{game: new GameLobby({game: allGames[game].name, maxPlayers: allGames[game].maxPlayers})}} 
 //     });
 
     for (var i = 0; i < Object.keys(allGames).length; i++) {
 
         
-        this[`${allGames[Object.keys(allGames)[i]].name}`] = new GameLobby({game: allGames[Object.keys(allGames)[i]].name, amountOfPlayers: allGames[Object.keys(allGames)[i]].maxPlayers});
+        this[`${allGames[Object.keys(allGames)[i]].name}`] = new GameLobby({game: allGames[Object.keys(allGames)[i]].name, maxPlayers: allGames[Object.keys(allGames)[i]].maxPlayers});
 
         test.push(this[`${allGames[Object.keys(allGames)[i]].name}`]);
 
@@ -52,7 +52,7 @@ let test = [];
 //     console.log(game);
     
 //     console.log(allGames[game]);
-//     Object.assign(gameLobbies, new GameLobby({game: game, amountOfPlayers: 5 }));
+//     Object.assign(gameLobbies, new GameLobby({game: game, maxPlayers: 5 }));
 // })
 // console.log("  ");
 // console.log(gameLobbies);
