@@ -21,10 +21,10 @@ module.exports = {
         // console.log(newUser);
 
         // console.log(`Gmae lobbies: ${Object.keys(gameLobbies)}`);
-        // game,amountOfPlayers,currentPlayersIDs
+        // game,amountOfPlayers,currentPlayers
         // console.log(`Game name: ${gameLobbies['game']}`);
         // console.log(`Game PLAYERSMAX: ${gameLobbies['amountOfPlayers']}`);
-        // console.log(`Game currentPlayersIDs: ${gameLobbies['currentPlayersIDs']}`);
+        // console.log(`Game currentPlayers: ${gameLobbies['currentPlayers']}`);
         // console.log(`Game: ${Object.keys(gameLobbies)}`);
         // console.log(`Game: ${Object.keys(gameLobbies)}`);
 
@@ -32,18 +32,18 @@ module.exports = {
             return lobby["game"] === selectedGame;
         })
 
-        const numberOfQueuedPlayers = selectedLobby['currentPlayersIDs'].length;
+        const numberOfQueuedPlayers = selectedLobby['currentPlayers'].length;
         const currentUserId = interaction.user.id;
         const palyersBeforeLobbyReset = selectedLobby['maxPlayers'] -1;
 
-        const userNotInQueue = !selectedLobby['currentPlayersIDs'].includes(`<@${currentUserId}>`)
+        const userNotInQueue = !selectedLobby['currentPlayers'].includes(`<@${currentUserId}>`)
 
         if ( userNotInQueue ) {
             
             
             if (numberOfQueuedPlayers <= palyersBeforeLobbyReset) {
                 selectedLobby.addPlayer(currentUserId);
-                await interaction.reply( {content: `Current party for ${selectedGame} - ${selectedLobby['currentPlayersIDs'].join(', ')}.`});
+                await interaction.reply( {content: `Current party for ${selectedGame} - ${selectedLobby['currentPlayers'].join(', ')}.`});
             } 
             // else if ( numberOfQueuedPlayers === selectedLobby['maxPlayers'] ){
             else {
@@ -55,18 +55,18 @@ module.exports = {
            
             
             // console.log(selectedLobby['maxPlayers']);
-            // console.log(selectedLobby['currentPlayersIDs']);
-            console.log(`IDENTIFIABLE USERS: ${selectedLobby['currentPlayersIDs'].join(' ')}`);
+            // console.log(selectedLobby['currentPlayers']);
+            console.log(`IDENTIFIABLE USERS: ${selectedLobby['currentPlayers'].join(' ')}`);
             console.log(`USER ALREADY IN QUEUE for ${selectedGame}`);
         } 
 
         else {
-            await interaction.reply( {content: `You are already in queue for __**${selectedGame} and will be tagged when other people are looking too.`,
+            await interaction.reply( {content: `You are already in queue for __**${selectedGame}**__ and will be tagged when other people join.`,
              ephemeral: true});
             
         }
 
-        userNotInQueue
+        // userNotInQueue
             
 
         
@@ -74,10 +74,10 @@ module.exports = {
 
         // Checks the current object
         // console.log(selectedLobby['maxPlayers']);
-        // console.log(selectedLobby['currentPlayersIDs']);
+        // console.log(selectedLobby['currentPlayers']);
         // console.log(interaction.user.id);
         // selectedLobby.addPlayer(currentUserId);
-        // console.log(selectedLobby['currentPlayersIDs']);
+        // console.log(selectedLobby['currentPlayers']);
         // interaction.channel.send(`<@${currentUserId}>`);
 
         
