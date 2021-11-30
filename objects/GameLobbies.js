@@ -9,7 +9,7 @@ class GameLobby
         this.amountOfPlayers=params.amountOfPlayers;
         this.currentPlayers = [];
         
-        console.log('constructor of GameLobby class called: ');
+        // console.log('constructor of GameLobby class called: ');
         // console.log(
         //     Object.keys(allGames).map( (game) => {
         //         console.log(" ")
@@ -25,7 +25,7 @@ class GameLobby
       }
 }
 
-let test = ["asd"];
+let test = [];
 
 
 //     Object.keys(allGames).map( (game) => {
@@ -37,7 +37,10 @@ let test = ["asd"];
     for (var i = 0; i < Object.keys(allGames).length; i++) {
 
         
-        this[allGames[Object.keys(allGames)[i]].name] = new GameLobby({game: allGames[Object.keys(allGames)[i]].name, amountOfPlayers: allGames[Object.keys(allGames)[i]].maxPlayers});
+        this[`${allGames[Object.keys(allGames)[i]].name}`] = new GameLobby({game: allGames[Object.keys(allGames)[i]].name, amountOfPlayers: allGames[Object.keys(allGames)[i]].maxPlayers});
+
+        test.push(this[`${allGames[Object.keys(allGames)[i]].name}`]);
+
         console.log(this[allGames[Object.keys(allGames)[i]].name])
         
         

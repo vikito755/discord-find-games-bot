@@ -27,6 +27,25 @@ module.exports = {
         // console.log(`Game currentPlayers: ${GameLobbies['currentPlayers']}`);
         // console.log(`Game: ${Object.keys(GameLobbies)}`);
         // console.log(`Game: ${Object.keys(GameLobbies)}`);
+
+        const selectedLobby = GameLobbies.filter( lobby => {
+            
+            return lobby["game"] === selectedGame;
+        })
+
+        // GameLobbies.map( game => {
+        //     console.log(" ");
+        //     console.log(game);
+        // })
+
+        // console.log(Object.keys(GameLobbies[0]));
+
+        console.log(selectedLobby[0]['amountOfPlayers']);
+        console.log(selectedLobby[0]['currentPlayers']);
+        selectedLobby[0].addPlayer();
+        console.log(selectedLobby[0]['currentPlayers']);
+
+        // console.log(`Game: ${currentGame}`);
         // game,amountOfPlayers,currentPlayers
 
         // console.log(`The object for selected game: ${GameLobbies}`);
