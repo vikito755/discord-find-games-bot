@@ -4,6 +4,7 @@ const { lookingForGameCommand, millisecondsBeforeLobbyReset } = require('../cons
 const { gameLobbies } = require ('../objects/gameLobbies');
 const minutesBeforeLobbyReset = parseInt(millisecondsBeforeLobbyReset / 60000);
 
+// Allows users to queue up for predefined games
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName(lookingForGameCommand)
@@ -28,7 +29,6 @@ module.exports = {
         const userNotInQueue = !selectedLobby['currentPlayers'].includes(`<@${currentUserId}>`)
 
         if ( userNotInQueue ) {
-            
             
             if (numberOfQueuedPlayers === 0) {
                 selectedLobby.startTimer();
