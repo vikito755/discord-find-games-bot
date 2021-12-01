@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { allGamesResponse } = require('../responses/allGames');
 
 // Displays all available games. In the future categories may be added.
-module.exports = {
+                                 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('all_games')
 			     	 	 	.setDescription('Display a list of all available games you can get notified for!'),
@@ -11,4 +11,4 @@ module.exports = {
 		 	 await interaction.reply({ content: allGamesResponse, ephemeral: true });
 
 	},
- 	 	    	 	     	  	      };
+ };

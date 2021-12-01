@@ -10,10 +10,14 @@
     "foo": "echo \"fooo\" && exit 0",
     "startBot": "node deploy.js && node botStart.js "
   },
-  "pre-commit": [
-    "foo",
-    "lint:fix"
-  ],
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+    },
+    "husky": {
+    "hooks": {
+    "pre-commit": "lint-staged && pretty-quick --staged"
+    }
+    },    
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vikito755/discord-find-games-discord-bot.git"
@@ -31,6 +35,8 @@
     "discord.js": "^13.3.1"
   },
   "devDependencies": {
-    "eslint": "^8.3.0"
+    "eslint": "^8.3.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2"
   }
 }
