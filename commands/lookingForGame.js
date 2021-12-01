@@ -1,10 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { gameOptions } = require('../responses/gameChoices')
 const { lookingForGameCommand } = require('../constants.json')
-const { Client, Collection, Intents } = require('discord.js');
 const { gameLobbies } = require ('../objects/gameLobbies');
-
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -59,6 +56,6 @@ module.exports = {
              ephemeral: true});
             
         }
-        // console.log(`Lobby for: ${selectedGame}`);
+        console.log(`Lobby for: ${selectedGame}`);
     },
 };

@@ -17,6 +17,6 @@ const normaliseCommandName = (gameName) => {
     return (gameName)
 }
 
-module.exports = {
+export default {
     normaliseCommandName
 };

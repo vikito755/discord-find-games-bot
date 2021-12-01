@@ -1,16 +1,16 @@
 {
-    "allGames": {
-        "game1": {
+    "allGames": [
+        {
             "name": "Dota 2",
             "maxPlayers": 5
         },
-        "game2": {
+        {
             "name": "CS: GO",
             "maxPlayers": 5
         },
-        "game3": {
+        {
             "name": "Rocket league",
             "maxPlayers": 3
         }
-    }
+    ]
 }
