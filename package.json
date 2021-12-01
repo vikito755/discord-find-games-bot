@@ -8,8 +8,13 @@
     "startBot": "node deploy.js && node botStart.js "
   },
   "lint-staged": {
-    "*.js": "npx eslint . --cache --fix"
+    "*.js": ["eslint --cache --fix"]
   },
+  "husky": {
+      "hooks": {
+      "pre-commit": "lint-staged && pretty-quick --staged"
+      }
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vikito755/discord-find-games-discord-bot.git"
