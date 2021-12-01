@@ -27,9 +27,7 @@ class GameLobby
     // This function starts the timer, ends and clears the array if it if it is stale and clears the array of players.
     startTimer() {
         this.timer = setTimeout( () => {
-            console.log("Resetting lobby.");
             this.reset();
-            console.log("Stopping the timer.");
             clearTimeout(this.timer);
             // Currently set to 30 minutes from 'constants.json'.
         }, millisecondsBeforeLobbyReset)
@@ -37,8 +35,6 @@ class GameLobby
 
     // This function manually stops the timer. For the case when the lobby is filled up.
     stopTimer() {
-        console.log("Stopping timer.");
-        console.log(`!!!!Stop function array TIMER${this.currentPlayers}`);
         clearTimeout(this.timer);
     }
 

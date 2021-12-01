@@ -1,13 +1,13 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { gameOptions } = require('../responses/gameChoices')
-const { lookingForGameCommand, } = require('../constants.json')
+const { lookingForGameCommand, millisecondsBeforeLobbyReset } = require('../constants.json')
 const { gameLobbies } = require ('../objects/gameLobbies');
-const minutesBeforeLobbyReset = lookingForGameCommand / 60000;
+const minutesBeforeLobbyReset = parseInt(millisecondsBeforeLobbyReset / 60000);
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName(lookingForGameCommand)
-		.setDescription(`Get notified when someone else is also looking to play the same game as you. Lobbies restart every ${minutesBeforeLobbyReset}`)
+		.setDescription(`Get notified when someone else is looking to play. Lobbies restart every ${minutesBeforeLobbyReset} minutes.`)
         .addStringOption( option =>
         option.setName("game")
             .setDescription("Start typing the game you are looking to play and send it.")
