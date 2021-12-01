@@ -99,3 +99,6 @@ https://discordjs.guide/creating-your-bot/creating-commands.html#the-problem-wit
 constants.json - constant variables I'd like to use across files.
 
 
+Testing:
+- Test if the lobbies reset after 30 minutes.
+- Check if lobbies affect each other. (starte CS and Rocket League lobby at different times and see if one of the lobbies stops both).

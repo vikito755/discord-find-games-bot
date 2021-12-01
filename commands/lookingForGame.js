@@ -18,16 +18,7 @@ module.exports = {
             ),
 	async execute(interaction) {   
         const selectedGame = interaction.options._hoistedOptions[0].value;
-        // console.log(newUser);
-
-        // console.log(`Gmae lobbies: ${Object.keys(gameLobbies)}`);
-        // game,amountOfPlayers,currentPlayers
-        // console.log(`Game name: ${gameLobbies['game']}`);
-        // console.log(`Game PLAYERSMAX: ${gameLobbies['amountOfPlayers']}`);
-        // console.log(`Game currentPlayers: ${gameLobbies['currentPlayers']}`);
-        // console.log(`Game: ${Object.keys(gameLobbies)}`);
-        // console.log(`Game: ${Object.keys(gameLobbies)}`);
-
+        
         const selectedLobby = gameLobbies.find( lobby => {            
             return lobby["game"] === selectedGame;
         })
@@ -41,21 +32,24 @@ module.exports = {
         if ( userNotInQueue ) {
             
             
-            if (numberOfQueuedPlayers <= palyersBeforeLobbyReset) {
+            if (numberOfQueuedPlayers === 0) {
+                selectedLobby.startTimer();
                 selectedLobby.addPlayer(currentUserId);
-                await interaction.reply( {content: `Current party for ${selectedGame} - ${selectedLobby['currentPlayers'].join(', ')}.`});
+                await interaction.reply( {content: `Current party for __**${selectedGame}**__ - ${selectedLobby['currentPlayers'].join(', ')}.`});
+            }
+
+            else if (numberOfQueuedPlayers <= palyersBeforeLobbyReset) {
+                selectedLobby.addPlayer(currentUserId);
+                await interaction.reply( {content: `Current party for __**${selectedGame}**__ - ${selectedLobby['currentPlayers'].join(', ')}.`});
             } 
-            // else if ( numberOfQueuedPlayers === selectedLobby['maxPlayers'] ){
             else {
                 console.log("Empty the the queue here.");
                 selectedLobby.reset();
+                selectedLobby.stopTimer()
                 selectedLobby.addPlayer(currentUserId);
-                await interaction.reply(`Resetting the ${selectedGame} lobby and adding <@${currentUserId}> to it.`);                
+                await interaction.reply(`Resetting the __**${selectedGame}**__ lobby and adding <@${currentUserId}> to it.`);                
             } 
            
-            
-            // console.log(selectedLobby['maxPlayers']);
-            // console.log(selectedLobby['currentPlayers']);
             console.log(`IDENTIFIABLE USERS: ${selectedLobby['currentPlayers'].join(' ')}`);
             console.log(`USER ALREADY IN QUEUE for ${selectedGame}`);
         } 
@@ -65,23 +59,6 @@ module.exports = {
              ephemeral: true});
             
         }
-
-        // userNotInQueue
-            
-
-        
-            
-
-        // Checks the current object
-        // console.log(selectedLobby['maxPlayers']);
-        // console.log(selectedLobby['currentPlayers']);
-        // console.log(interaction.user.id);
-        // selectedLobby.addPlayer(currentUserId);
-        // console.log(selectedLobby['currentPlayers']);
-        // interaction.channel.send(`<@${currentUserId}>`);
-
-        
-		// await interaction.reply( {content: `${interaction.user} discord is looking to play ${selectedGame}`});
-        console.log(`Registered: ${selectedGame}`);
+        // console.log(`Lobby for: ${selectedGame}`);
     },
 };
