@@ -5,12 +5,10 @@
   "main": "botStart.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "pretest": "eslint --ignore-path .gitignore .",
+    
     "startBot": "node deploy.js && node botStart.js "
   },
-  "pre-commit": {
-    "run": "pretest"
-  },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vikito755/discord-find-games-discord-bot.git"
