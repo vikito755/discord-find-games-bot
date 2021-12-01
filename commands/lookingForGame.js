@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { gameOptions } = require('../responses/gameChoices')
-const { lookingForGameCommand, millisecondsBeforeLobbyReset } = require('../constants.json')
+const { gameOptions } = require('../responses/gameChoices');
+const { lookingForGameCommand, millisecondsBeforeLobbyReset } = require('../constants.json');
 const { gameLobbies } = require ('../objects/gameLobbies');
 const minutesBeforeLobbyReset = parseInt(millisecondsBeforeLobbyReset / 60000);
 
@@ -9,48 +9,48 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName(lookingForGameCommand)
 		.setDescription(`Get notified when someone else is looking to play. Lobbies restart every ${minutesBeforeLobbyReset} minutes.`)
-        .addStringOption( option =>
-        option.setName("game")
-            .setDescription("Start typing the game you are looking to play and send it.")
-            .setRequired(true)
-            .addChoices(gameOptions)
-            ),
-	async execute(interaction) {   
-        const selectedGame = interaction.options._hoistedOptions[0].value;
-        
-        const selectedLobby = gameLobbies.find( lobby => {            
-            return lobby["game"] === selectedGame;
-        })
+		.addStringOption(option =>
+			option.setName('game')
+				.setDescription('Start typing the game you are looking to play and send it.')
+				.setRequired(true)
+				.addChoices(gameOptions),
+		),
+	async execute(interaction) {
+		const selectedGame = interaction.options._hoistedOptions[0].value;
 
-        const numberOfQueuedPlayers = selectedLobby['currentPlayers'].length;
-        const currentUserId = interaction.user.id;
-        const palyersBeforeLobbyReset = selectedLobby['maxPlayers'] -1;
+		const selectedLobby = gameLobbies.find(lobby => {
+			return lobby['game'] === selectedGame;
+		});
 
-        const userNotInQueue = !selectedLobby['currentPlayers'].includes(`<@${currentUserId}>`)
+		const numberOfQueuedPlayers = selectedLobby['currentPlayers'].length;
+		const currentUserId = interaction.user.id;
+		const palyersBeforeLobbyReset = selectedLobby['maxPlayers'] - 1;
 
-        if ( userNotInQueue ) {
-            
-            if (numberOfQueuedPlayers === 0) {
-                selectedLobby.startTimer();
-                selectedLobby.addPlayer(currentUserId);
-                await interaction.reply( {content: `Current party for __**${selectedGame}**__ - ${selectedLobby['currentPlayers'].join(', ')}.`});
-            }
+		const userNotInQueue = !selectedLobby['currentPlayers'].includes(`<@${currentUserId}>`);
 
-            else if (numberOfQueuedPlayers <= palyersBeforeLobbyReset) {
-                selectedLobby.addPlayer(currentUserId);
-                await interaction.reply( {content: `Current party for __**${selectedGame}**__ - ${selectedLobby['currentPlayers'].join(', ')}.`});
-            } 
-            else {
-                selectedLobby.reset();
-                selectedLobby.stopTimer()
-                selectedLobby.addPlayer(currentUserId);
-                await interaction.reply(`Resetting the __**${selectedGame}**__ lobby and adding <@${currentUserId}> to a new one.`);                
-            }
-        } 
-        else {
-            await interaction.reply( {content: `You are already in queue for __**${selectedGame}**__ and will be tagged when other people join. Each lobby lasts for ${minutesBeforeLobbyReset} minutes (From the moment they are started).`,
-             ephemeral: true});
-            
-        }
-    },
+		if (userNotInQueue) {
+
+			if (numberOfQueuedPlayers === 0) {
+				selectedLobby.startTimer();
+				selectedLobby.addPlayer(currentUserId);
+				await interaction.reply({ content: `Current party for __**${selectedGame}**__ - ${selectedLobby['currentPlayers'].join(', ')}.` });
+			}
+
+			else if (numberOfQueuedPlayers <= palyersBeforeLobbyReset) {
+				selectedLobby.addPlayer(currentUserId);
+				await interaction.reply({ content: `Current party for __**${selectedGame}**__ - ${selectedLobby['currentPlayers'].join(', ')}.` });
+			}
+			else {
+				selectedLobby.reset();
+				selectedLobby.stopTimer();
+				selectedLobby.addPlayer(currentUserId);
+				await interaction.reply(`Resetting the __**${selectedGame}**__ lobby and adding <@${currentUserId}> to a new one.`);
+			}
+		}
+		else {
+			await interaction.reply({ content: `You are already in queue for __**${selectedGame}**__ and will be tagged when other people join. Each lobby lasts for ${minutesBeforeLobbyReset} minutes (From the moment they are started).`,
+				ephemeral: true });
+
+		}
+	},
 };
