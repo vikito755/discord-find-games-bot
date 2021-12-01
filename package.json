@@ -4,11 +4,10 @@
   "description": "Discord bot helping people find other people looking to play video games.",
   "main": "botStart.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "eslint .",
     
     "startBot": "node deploy.js && node botStart.js "
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vikito755/discord-find-games-discord-bot.git"
