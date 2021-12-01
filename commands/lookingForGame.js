@@ -41,22 +41,16 @@ module.exports = {
                 await interaction.reply( {content: `Current party for __**${selectedGame}**__ - ${selectedLobby['currentPlayers'].join(', ')}.`});
             } 
             else {
-                console.log("Empty the the queue here.");
                 selectedLobby.reset();
                 selectedLobby.stopTimer()
                 selectedLobby.addPlayer(currentUserId);
                 await interaction.reply(`Resetting the __**${selectedGame}**__ lobby and adding <@${currentUserId}> to a new one.`);                
-            } 
-           
-            console.log(`IDENTIFIABLE USERS: ${selectedLobby['currentPlayers'].join(' ')}`);
-            console.log(`USER ALREADY IN QUEUE for ${selectedGame}`);
+            }
         } 
-
         else {
-            await interaction.reply( {content: `You are already in queue for __**${selectedGame}**__ and will be tagged when other people join.`,
+            await interaction.reply( {content: `You are already in queue for __**${selectedGame}**__ and will be tagged when other people join. Each lobby lasts for ${minutesBeforeLobbyReset} minutes (From the moment they are started).`,
              ephemeral: true});
             
         }
-        console.log(`Lobby for: ${selectedGame}`);
     },
 };
