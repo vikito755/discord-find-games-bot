@@ -73,7 +73,6 @@ https://discordjs.guide/creating-your-bot/creating-commands.html#the-problem-wit
 
 <h3> Later development notes</h3>
 
-- A bot restart is needed after a new command is added. Here is how it can be done: https://stackoverflow.com/questions/48601463/how-do-you-make-a-command-which-restarts-your-bot-in-discord-js
 - Add it in the voting and changes scripts later
  Later:
   - Commands for the admins to add and remove games, from the "games.json" file or the future database.
@@ -91,9 +90,11 @@ https://discordjs.guide/creating-your-bot/creating-commands.html#the-problem-wit
 - Get the number of active users with a role, how much growth it has, how many people were looking for a game. So you can figure out which games are most wanted and played.
 
 <h2>Folders:</h2>
-- commands - contains one "/" command per file, gets loaded into "bot.js" when it runs.
+- commands - contains one "/" command per file, gets loaded into "botStart.js" when it runs.
 - events - contains all events to which the bot listens, one per file.
-- responses - reactions of the bot to all commands, also used to precompile large lists (currently list of games), so it can scale and be fast later, it triggers on both "node deploy.js" and "node bot.js".
+- responses - reactions of the bot to all commands, also used to precompile large lists (currently list of games), so it can scale and be fast later, it triggers on both "node deploy.js" and "node botStart.js".
+- responses - reactions of the bot to all commands, also used to precompile large lists (currently list of games), so it can scale and be fast later, it triggers on both "node deploy.js" and "node botStart.js".
+- objects - contains class definitions and precompilations so objects from those classes can be created and exported for later use.
 
 <h2>Files:</h2>
 constants.json - constant variables I'd like to use across files.

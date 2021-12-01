@@ -42,7 +42,6 @@ class GameLobby
         clearTimeout(this.timer);
     }
 
-
 }
 
     // Array of GameLobby objects that get filtered in the 'lookingForGame' command for a specific lobby.

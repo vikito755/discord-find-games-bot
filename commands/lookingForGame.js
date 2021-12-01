@@ -47,7 +47,7 @@ module.exports = {
                 selectedLobby.reset();
                 selectedLobby.stopTimer()
                 selectedLobby.addPlayer(currentUserId);
-                await interaction.reply(`Resetting the __**${selectedGame}**__ lobby and adding <@${currentUserId}> to it.`);                
+                await interaction.reply(`Resetting the __**${selectedGame}**__ lobby and adding <@${currentUserId}> to a new one.`);                
             } 
            
             console.log(`IDENTIFIABLE USERS: ${selectedLobby['currentPlayers'].join(' ')}`);
