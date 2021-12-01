@@ -5,8 +5,8 @@
   "main": "botStart.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
+    "lint": "eslint . --fix",
+    "lint:fix": "npx eslint --fix",
     "foo": "echo \"fooo\" && exit 0",
     "startBot": "node deploy.js && node botStart.js "
   },
@@ -31,7 +31,7 @@
     "discord.js": "^13.3.1"
   },
   "devDependencies": {
-    "eslint": "^8.2.0",
+    "eslint": "^8.3.0",
     "pre-commit": "^1.2.2"
   }
 }
