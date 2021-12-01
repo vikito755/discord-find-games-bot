@@ -4,7 +4,7 @@ const pattern = '[^a-z0-9_]';
 //
 const normaliseCommandName = (gameName) => {
 
-	gameName = gameName.toLowerCase().replace(' ', '_').replace(new RegExp(pattern, 'gui'), function(c) {
+	              gameName = gameName.toLowerCase().replace(' ', '_').replace(new RegExp(pattern, 'gui'), function(c) {
 		return c === pattern ? c : '_';
 	});
 
