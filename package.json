@@ -11,7 +11,8 @@
     "startBot": "node deploy.js && node botStart.js "
   },
   "pre-commit": [
-    "foo"
+    "foo",
+    "lint:fix"
   ],
   "repository": {
     "type": "git",
