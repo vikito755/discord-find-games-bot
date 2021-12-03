@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { gameOptions } = require('../responses/gameChoices');
 const { lookingForGameCommand, millisecondsBeforeLobbyReset } = require('../constants.json');
-const { gameLobbies } = require ('../objects/gameLobbies');
+const { GameStorage } = require('../initialisation/GameStorage');
+
 const minutesBeforeLobbyReset = parseInt(millisecondsBeforeLobbyReset / 60000);
 
 // Allows users to queue up for predefined games
@@ -13,12 +13,12 @@ module.exports = {
 			option.setName('game')
 				.setDescription('Start typing the game you are looking to play and send it.')
 				.setRequired(true)
-				.addChoices(gameOptions),
+				.addChoices(GameStorage.gameOptions),
 		),
 	async execute(interaction) {
 		const selectedGame = interaction.options._hoistedOptions[0].value;
 
-		const selectedLobby = gameLobbies.find(lobby => {
+		const selectedLobby = GameStorage.lobbies.find(lobby => {
 			return lobby['game'] === selectedGame;
 		});
 
@@ -50,7 +50,6 @@ module.exports = {
 		else {
 			await interaction.reply({ content: `You are already in queue for __**${selectedGame}**__ and will be tagged when other people join. Each lobby lasts for ${minutesBeforeLobbyReset} minutes (From the moment they are started).`,
 				ephemeral: true });
-
 		}
 	},
 };

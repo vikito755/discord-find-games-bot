@@ -1,4 +1,3 @@
-const { allGames } = require('../games.json');
 const { millisecondsBeforeLobbyReset } = require('../constants.json');
 
 class GameLobby {
@@ -36,20 +35,4 @@ class GameLobby {
 
 }
 
-// Array of GameLobby objects that get filtered in the 'lookingForGame' command for a specific lobby.
-const gameLobbies = [];
-
-const numberOfGames = Object.keys(allGames).length;
-
-for (let i = 0; i < numberOfGames; i++) {
-
-	let gameIdentifier = this[`${allGames[Object.keys(allGames)[i]].name}`];
-
-	// Creates a game lobby object for each game.
-	gameIdentifier = new GameLobby({ game: allGames[Object.keys(allGames)[i]].name, maxPlayers: allGames[Object.keys(allGames)[i]].maxPlayers });
-
-	gameLobbies.push(gameIdentifier);
-
-}
-
-module.exports.gameLobbies = gameLobbies;
+module.exports.GameLobby = GameLobby;
