@@ -4,6 +4,7 @@ const { allGames } = require('../games.json');
 
 const gameLobbies = [];
 const gameOptions = [];
+let listOfAllGames = 'All games: \n';
 
 // Filling the gameLobbies and gameOptions with one loop.
 allGames.map(game => {
@@ -18,8 +19,9 @@ allGames.map(game => {
 
 	gameOptions.push([gameName, gameName]);
 
+	listOfAllGames += `${gameName} \n`;
 });
 
-const GameStorage = new GamesWrapper({ gameOptions: gameOptions, lobbies: gameLobbies });
+const GameStorage = new GamesWrapper({ gameOptions: gameOptions, lobbies: gameLobbies, listGames: listOfAllGames });
 
 module.exports.GameStorage = GameStorage;

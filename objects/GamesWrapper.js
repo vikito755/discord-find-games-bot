@@ -9,6 +9,8 @@ class GamesWrapper {
 
 		// Array of GameLobby objects. Previously called "gameLobbies"
 		this.lobbies = params.lobbies;
+
+		this.listGames = params.listGames;
 	}
 
 }
