@@ -1,7 +1,7 @@
-const removeGameOption = () => {
+const removeGame = () => {
 	console.log('gameRemoved added');
 };
 
 export default {
-	removeGameOption,
+	removeGame,
 };
