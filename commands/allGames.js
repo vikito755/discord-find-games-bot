@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { GameStorage } = require('../initialisation/GameStorage');
-// const { allGamesResponse } = require('../responses/allGames');
 
 // Displays all available games. In the future categories may be added.
 module.exports = {
