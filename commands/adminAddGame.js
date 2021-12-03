@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { botManagerRoleId } = require('../constants.json');
+const { addGame } = require('../utilities/addGame');
 
 // Allows admin to add a game option.
 module.exports = {
@@ -8,11 +9,23 @@ module.exports = {
 		.setDescription('Add a game to the list of games.')
 		.addStringOption(option =>
 			option.setName('game')
-				.setDescription('The __**full**__ name of the game you wish to add.')
-				.setRequired(true)),
+				.setDescription('The full name of the game you wish to add.')
+				.setRequired(true))
+		.addIntegerOption(option =>
+			option.setName('max_players')
+				.setDescription('The max number of players for the most popular mode of the game.')
+				.setRequired(true),
+		),
 	async execute(interaction) {
 		const userHasRole = interaction.member._roles.includes(botManagerRoleId);
 		if (userHasRole) {
+
+			const addedGameName = interaction.options._hoistedOptions[0].value;
+			const maxPlayers = interaction.options._hoistedOptions[1].value;
+			addGame(addedGameName, maxPlayers);
+
+			console.log(addedGameName);
+			console.log(maxPlayers);
 			await interaction.reply('Game added by a user with a protected role.');
 		}
 		else {
