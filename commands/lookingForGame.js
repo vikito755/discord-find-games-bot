@@ -18,22 +18,7 @@ module.exports = {
 		),
 	async execute(interaction) {
 
-
-		if (!interaction.isAutocomplete()) return;
-
-		if (interaction.commandName === 'autocomplete') {
-			const focusedValue = interaction.options.getFocused();
-
-			const choices = ['faq', 'install', 'collection', 'promise', 'debug'];
-
-			const filtered = choices.filter(choice => choice.startsWith(focusedValue));
-
-			const response = await interaction.respond(
-				filtered.map(choice => ({ name: choice, value: choice })),
-			);
-			console.log(response);
-		}
-
+		// console.log(interaction.options._hoistedOptions[0]);
 
 		const selectedGame = interaction.options._hoistedOptions[0].value;
 

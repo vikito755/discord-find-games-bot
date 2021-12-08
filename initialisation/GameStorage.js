@@ -2,7 +2,7 @@ const { GamesWrapper } = require('../objects/GamesWrapper');
 const { GameLobby } = require('../objects/GameLobby');
 const { allGames } = require('../games.json');
 
-const { createGameOption } = require('../utilities/createGameOption');
+// const { createGameOption } = require('../utilities/createGameOption');
 
 const gameLobbies = [];
 const gameOptions = [];
@@ -19,7 +19,7 @@ allGames.map(game => {
 
 	gameLobbies.push(gameIdentifier);
 
-	gameOptions.push(createGameOption(gameName));
+	gameOptions.push(gameName);
 
 	listOfAllGames += `${gameName} \n`;
 });

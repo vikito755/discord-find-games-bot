@@ -1,50 +1,61 @@
-// const { secondsBeforeLobbyReset, maximumPlayers, lookingForGameCommand } = require('../constants.json');
-// const { REST } = require('@discordjs/rest');
-// const { Routes } = require('discord-api-types/v9');
-// const { token, clientId, guildId } = require('../config.json');
-// const { Client, Collection, Intents } = require('discord.js');
-// const fs = require('fs');
-// const { SlashCommandBuilder } = require('@discordjs/builders');
-// const path = require('path');
-// const { GameStorage } = require('../initialisation/GameStorage')
-// const { lookingForGameCommand } = require('../constants.json')
-
-
-// const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-
-// const commands = [];
-// const commandFiles = fs.readdirSync('../commands/').filter(file => file.endsWith('.js'));
-
-// const commandFiles = fs.readdirSync('../commands/lookingForGame');
-
-// fs.readFileSync('../commands/lookingForGame')
-
-// require('../commands/lookingForGame')
+const { GameStorage } = require('../initialisation/GameStorage');
+const { lookingForGameCommand } = require('../constants.json');
 
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction) {
 		if (!interaction.isAutocomplete()) return;
 
-		if (interaction.commandName === 'lfg') {
-			const focusedOption = interaction.options.getFocused(true);
+		if (interaction.commandName === lookingForGameCommand) {
+			const focusedValue = interaction.options.getFocused();
 
-			let choices;
+			const choices = GameStorage.gameOptions;
 
-			if (focusedOption.name === 'game') {
-				choices = ['faq', 'install', 'collection', 'promise', 'debug'];
-			}
-
-			// if (focusedOption.name === 'theme') {
-			// 	choices = ['halloween', 'christmas', 'summer'];
-			// }
-
-			const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
+			const filtered = choices.filter(choice => choice.startsWith(focusedValue));
 
 			const response = await interaction.respond(
 				filtered.map(choice => ({ name: choice, value: choice })),
 			);
 			console.log(response);
 		}
+
+
+		// console.log(interaction);
+
+		// const selectedGame = interaction.options._hoistedOptions[0].value;
+
+		// const selectedLobby = GameStorage.lobbies.find(lobby => {
+		// 	return lobby['game'] === selectedGame;
+		// });
+
+		// const numberOfQueuedPlayers = selectedLobby['currentPlayers'].length;
+		// const currentUserId = interaction.user.id;
+		// const palyersBeforeLobbyReset = selectedLobby['maxPlayers'] - 1;
+
+		// const userNotInQueue = !selectedLobby['currentPlayers'].includes(`<@${currentUserId}>`);
+
+		// if (userNotInQueue) {
+
+		// 	if (numberOfQueuedPlayers === 0) {
+		// 		selectedLobby.startTimer();
+		// 		selectedLobby.addPlayer(currentUserId);
+		// 		await interaction.reply({ content: `Current party for __**${selectedGame}**__ - ${selectedLobby['currentPlayers'].join(', ')}.` });
+		// 	}
+
+		// 	else if (numberOfQueuedPlayers <= palyersBeforeLobbyReset) {
+		// 		selectedLobby.addPlayer(currentUserId);
+		// 		await interaction.reply({ content: `Current party for __**${selectedGame}**__ - ${selectedLobby['currentPlayers'].join(', ')}.` });
+		// 	}
+		// 	else {
+		// 		selectedLobby.reset();
+		// 		selectedLobby.stopTimer();
+		// 		selectedLobby.addPlayer(currentUserId);
+		// 		await interaction.reply(`Resetting the __**${selectedGame}**__ lobby and adding <@${currentUserId}> to a new one.`);
+		// 	}
+		// }
+		// else {
+		// 	await interaction.reply({ content: `You are already in queue for __**${selectedGame}**__ and will be tagged when other people join. Each lobby lasts for ${minutesBeforeLobbyReset} minutes (From the moment they are started).`,
+		// 		ephemeral: true });
+		// }
 	},
 };
