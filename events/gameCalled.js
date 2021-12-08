@@ -6,7 +6,7 @@ module.exports = {
 	async execute(interaction) {
 		if (!interaction.isAutocomplete()) return;
 
-		if (interaction.commandName === lookingForGameCommand) {
+		if (interaction.commandName === (lookingForGameCommand || 'remove_game')) {
 			const focusedValue = interaction.options.getFocused();
 
 			const choices = GameStorage.gameOptions;

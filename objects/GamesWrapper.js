@@ -3,7 +3,6 @@ const { Game } = require('./Game');
 const { GameLobby } = require('./GameLobby');
 const fs = require('fs');
 
-
 /* The purpose of this wrapper is to have the GameLobbies (array of objects) and GameOptions (the options for the game array)
  as its properties so more games can be added and removed without resetting the bot. */
 
@@ -49,6 +48,24 @@ class GamesWrapper {
 		this.gameOptions.push(gameName);
 		this.lobbies.push(new GameLobby({ game: gameName, maxPlayers: maxPlayers }));
 
+	}
+
+	removeGame(gameName) {
+
+		// Removes the autocomplete option.
+		this.gameOptions = this.gameOptions.filter(option => {
+
+			return !(option === gameName);
+		});
+
+
+		this.lobbies = this.lobbies.filter(lobby => {
+			return !(lobby.game === gameName);
+		});
+
+		// All that is left is to delete the game from 'games.json', similarly to how you add a game above.
+
+		console.log(`Game to be removed GAME WRAPPER ${gameName}`);
 	}
 
 }

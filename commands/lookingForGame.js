@@ -13,12 +13,9 @@ module.exports = {
 			option.setName('game')
 				.setDescription('Start typing the game you are looking to play and send it.')
 				.setRequired(true)
-				// .addChoices(GameStorage.gameOptions)
 				.setAutocomplete(true),
 		),
 	async execute(interaction) {
-
-		// console.log(interaction.options._hoistedOptions[0]);
 
 		const selectedGame = interaction.options._hoistedOptions[0].value;
 
