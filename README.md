@@ -14,6 +14,15 @@ Discord guide progress - https://discordjs.guide/preparations/setting-up-a-bot-a
 
 https://discordjs.guide/popular-topics/faq.html#how-do-i-kick-a-user
 
+
+
+
+
+latest issue resolvers (4.12.2021)
+https://www.reddit.com/r/Discord_Bots/comments/pmcjh3/discordapierror10002_unknown_application/
+
+https://discordjs.guide/interactions/registering-slash-commands.html#guild-commands
+
 <h2>User flow:</h2>
 Each "game" is an object with 3 parameters (everything is automated, nothins is imputted by the user):
 - Name (string)
@@ -100,6 +109,11 @@ https://discordjs.guide/creating-your-bot/creating-commands.html#the-problem-wit
 constants.json - constant variables I'd like to use across files.
 
 
-Testing:
+
+<h2>Testing:</h2>
 - Test if the lobbies reset after 30 minutes.
 - Check if lobbies affect each other. (starte CS and Rocket League lobby at different times and see if one of the lobbies stops both).
+
+<h2>Know issues:</h2>
+Are the slash commadns not availabe?
+- Run "node deploy.js" then "node botStart.js", redeploying the bot.

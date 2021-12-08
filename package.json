@@ -8,13 +8,15 @@
     "startBot": "node deploy.js && node botStart.js "
   },
   "lint-staged": {
-    "*.js": ["eslint --cache --fix"]
+    "*.js": [
+      "eslint --cache --fix"
+    ]
   },
   "husky": {
-      "hooks": {
+    "hooks": {
       "pre-commit": "lint-staged && pretty-quick --staged"
-      }
-    },
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vikito755/discord-find-games-discord-bot.git"
@@ -26,7 +28,7 @@
   },
   "homepage": "https://github.com/vikito755/discord-find-games-discord-bot#readme",
   "dependencies": {
-    "@discordjs/builders": "^0.8.2",
+    "@discordjs/builders": "^0.9.0",
     "@discordjs/rest": "^0.1.0-canary.0",
     "discord-api-types": "^0.20.2",
     "discord.js": "^13.3.1"

@@ -13,9 +13,28 @@ module.exports = {
 			option.setName('game')
 				.setDescription('Start typing the game you are looking to play and send it.')
 				.setRequired(true)
-				.addChoices(GameStorage.gameOptions),
+				// .addChoices(GameStorage.gameOptions)
+				.setAutocomplete(true),
 		),
 	async execute(interaction) {
+
+
+		if (!interaction.isAutocomplete()) return;
+
+		if (interaction.commandName === 'autocomplete') {
+			const focusedValue = interaction.options.getFocused();
+
+			const choices = ['faq', 'install', 'collection', 'promise', 'debug'];
+
+			const filtered = choices.filter(choice => choice.startsWith(focusedValue));
+
+			const response = await interaction.respond(
+				filtered.map(choice => ({ name: choice, value: choice })),
+			);
+			console.log(response);
+		}
+
+
 		const selectedGame = interaction.options._hoistedOptions[0].value;
 
 		const selectedLobby = GameStorage.lobbies.find(lobby => {

@@ -1,5 +1,8 @@
+const { createGameOption } = require('../utilities/createGameOption');
+const { GameLobby } = require('./GameLobby');
 /* The purpose of this wrapper is to have the GameLobbies (array of objects) and GameOptions (the options for the game array)
  as its properties so more games can be added and removed without resetting the bot. */
+
 class GamesWrapper {
 // Updating GameWrapper with a method to update its game options.
 	constructor(params) {
@@ -11,6 +14,13 @@ class GamesWrapper {
 		this.lobbies = params.lobbies;
 
 		this.listGames = params.listGames;
+	}
+
+	addGame(gameName, maxPlayers) {
+
+		this.gameOptions.push(createGameOption(gameName));
+		this.lobbies.push(new GameLobby({ name: gameName, maxPlayers: maxPlayers }));
+
 	}
 
 }
