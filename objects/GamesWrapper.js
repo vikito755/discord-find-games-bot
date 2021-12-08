@@ -23,21 +23,14 @@ class GamesWrapper {
 
 		fs.readFile('./games.json', 'utf-8', (err, data) => {
 			if (err) {
-				console.log(`Error reading file from disk: ${err}`);
+				console.log(`While adding the game: ${err}`);
 			}
 
-			// console.log(data);
 			const persistentlyStoredGames = JSON.parse(data);
-			// persistentlyStoredGames.forEach(element => {
-			// 	console.log(element);
-			// });
-			console.log(persistentlyStoredGames);
-			// console.log(typeof(persistentlyStoredGames));
+
 			persistentlyStoredGames.allGames.push(new Game({ name: gameName, maxPlayers: maxPlayers }));
 
-			// persistentlyStoredGames.
 
-			console.log(persistentlyStoredGames);
 			const writingData = JSON.stringify(persistentlyStoredGames);
 
 			fs.writeFile('./games.json', writingData, 'utf-8', (err) => {

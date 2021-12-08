@@ -2,12 +2,14 @@ const { GamesWrapper } = require('../objects/GamesWrapper');
 const { GameLobby } = require('../objects/GameLobby');
 const { allGames } = require('../games.json');
 
+
 // const { createGameOption } = require('../utilities/createGameOption');
 
 const gameLobbies = [];
 const gameOptions = [];
 let listOfAllGames = 'All games: \n';
 
+console.log(allGames);
 // Filling the gameLobbies and gameOptions with one loop.
 allGames.map(game => {
 	// The gameName is "const", because it stays the same for the entire cycle.

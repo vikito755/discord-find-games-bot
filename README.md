@@ -94,6 +94,7 @@ https://discordjs.guide/creating-your-bot/creating-commands.html#the-problem-wit
 <h2>Issues and fixes:</h2>
 - The game module loads bot on "node deploy.js" and on "botStart.js". Which can be cumbersome if 100s of games are added.
 - Make sure that 2 games with the same name can't be added.
+- For the sake of "objects/GameWrapper.js", rewrite the "games.json file so there are only game objects without the array all games. So you can just write to it without needing to read the file. 
 
 
 <h2>Features to be considered:</h2>
@@ -114,6 +115,7 @@ constants.json - constant variables I'd like to use across files.
 <h2>Testing:</h2>
 - Test if the lobbies reset after 30 minutes.
 - Check if lobbies affect each other. (starte CS and Rocket League lobby at different times and see if one of the lobbies stops both).
+- Test if the games added through command have lobbies with the amount of palyers described.
 
 <h2>Know issues:</h2>
 Are the slash commadns not availabe?
