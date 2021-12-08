@@ -91,8 +91,9 @@ https://discordjs.guide/creating-your-bot/creating-commands.html#the-problem-wit
 - Limit the bot to 1 channel and have a slow mode for 5 minutes, to avoid spam.
 
 
-<h2>Issues:</h2>
+<h2>Issues and fixes:</h2>
 - The game module loads bot on "node deploy.js" and on "botStart.js". Which can be cumbersome if 100s of games are added.
+- Make sure that 2 games with the same name can't be added.
 
 
 <h2>Features to be considered:</h2>

@@ -2,12 +2,10 @@
 
 class Game {
 	constructor(params) {
-		this.game = params.game;
+		this.name = params.name;
 		this.maxPlayers = params.maxPlayers;
 	}
 
 }
 
-export default {
-	Game,
-};
+module.exports.Game = Game;
