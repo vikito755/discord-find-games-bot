@@ -19,7 +19,7 @@ class GamesWrapper {
 	addGame(gameName, maxPlayers) {
 
 		this.gameOptions.push(gameName);
-		this.lobbies.push(new GameLobby({ name: gameName, maxPlayers: maxPlayers }));
+		this.lobbies.push(new GameLobby({ game: gameName, maxPlayers: maxPlayers }));
 
 	}
 

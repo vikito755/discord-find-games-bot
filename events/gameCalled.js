@@ -13,10 +13,9 @@ module.exports = {
 
 			const filtered = choices.filter(choice => choice.startsWith(focusedValue));
 
-			const response = await interaction.respond(
+			await interaction.respond(
 				filtered.map(choice => ({ name: choice, value: choice })),
 			);
-			console.log(response);
 		}
 
 
