@@ -19,14 +19,14 @@ module.exports = {
 
 		const selectedGame = interaction.options._hoistedOptions[0].value;
 
+		if (!(GameStorage.gameOptions.includes(selectedGame))) {
+			await interaction.reply({ content: 'Incorrect game name (make sure you use autocomplete) or suggst the game to be added.', ephemeral: true });
+			return;
+		}
+
 		const selectedLobby = GameStorage.lobbies.find(lobby => {
 			return lobby['game'] === selectedGame;
 		});
-
-		if (selectedLobby === undefined) {
-			await interaction.reply('Incorrect game name (make sure you use autocomplete) or suggst the game to be added.');
-			return;
-		}
 
 		const numberOfQueuedPlayers = selectedLobby['currentPlayers'].length;
 		const currentUserId = interaction.user.id;
