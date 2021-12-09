@@ -23,6 +23,11 @@ module.exports = {
 			return lobby['game'] === selectedGame;
 		});
 
+		if (selectedLobby === undefined) {
+			await interaction.reply('Incorrect game name (make sure you use autocomplete) or suggst the game to be added.');
+			return;
+		}
+
 		const numberOfQueuedPlayers = selectedLobby['currentPlayers'].length;
 		const currentUserId = interaction.user.id;
 		const palyersBeforeLobbyReset = selectedLobby['maxPlayers'] - 1;

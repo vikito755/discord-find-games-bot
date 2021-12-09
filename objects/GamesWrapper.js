@@ -34,10 +34,10 @@ class GamesWrapper {
 
 			fs.writeFile('./games.json', writingData, 'utf-8', (err) => {
 				if (err) {
-					console.log(`Error writing file: ${err}`);
+					console.log(`Error adding game: ${err}`);
 				}
 				else {
-					console.log('File is written successfully!');
+					console.log('Game added successfully!');
 				}
 
 			});
@@ -52,22 +52,21 @@ class GamesWrapper {
 
 	removeGame(gameName) {
 
-		// Removes the autocomplete option.
-		this.gameOptions = this.gameOptions.filter(option => {
-
-			return !(option === gameName);
-		});
-
-
-		// this.lobbies = this.lobbies.filter(lobby => {
-		// 	return !(lobby.game === gameName);
-		// });
-
 
 		fs.readFile('./games.json', 'utf-8', (err, data) => {
 			if (err) {
-				console.log(`While removing the game: ${err}`);
+				console.log(`Error while removing a game: ${err}`);
 			}
+
+			// Removes the autocomplete option.
+			this.gameOptions = this.gameOptions.filter(option => {
+				return !(option === gameName);
+			});
+
+			// Removes the lobby for the LFG command.
+			this.lobbies = this.lobbies.filter(lobby => {
+				return !(lobby.game === gameName);
+			});
 
 			const persistentlyStoredGames = JSON.parse(data);
 
@@ -82,7 +81,7 @@ class GamesWrapper {
 
 			fs.writeFile('./games.json', writingData, 'utf-8', (err) => {
 				if (err) {
-					console.log(`Error writing file: ${err}`);
+					console.log(`Error while removing a game: ${err}`);
 				}
 				else {
 					console.log('Game removed successfully!');
@@ -92,10 +91,7 @@ class GamesWrapper {
 
 		});
 
-
-		// All that is left is to delete the game from 'games.json', similarly to how you add a game above.
-
-		console.log(`Game to be removed GAME WRAPPER ${gameName}`);
+		console.log(`Game added ${gameName}`);
 	}
 
 }
