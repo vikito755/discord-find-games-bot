@@ -5,14 +5,7 @@ const { GameStorage } = require('../initialisation/GameStorage');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('all_games')
-		.setDescription('Display a list of all available games you can get notified for!')
-		.addStringOption(option =>
-			option.setName('testing')
-				.setDescription('Testing a feature.')
-				.setRequired(true)
-				.setAutocomplete(true),
-
-		),
+		.setDescription('Display a list of all available games you can get notified for!'),
 	async execute(interaction) {
 		// The argument "ephemeral" means that only the user who submitted the command can see the response.
 		await interaction.reply({ content: GameStorage.listGames, ephemeral: true });
