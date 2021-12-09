@@ -59,9 +59,39 @@ class GamesWrapper {
 		});
 
 
-		this.lobbies = this.lobbies.filter(lobby => {
-			return !(lobby.game === gameName);
+		// this.lobbies = this.lobbies.filter(lobby => {
+		// 	return !(lobby.game === gameName);
+		// });
+
+
+		fs.readFile('./games.json', 'utf-8', (err, data) => {
+			if (err) {
+				console.log(`While removing the game: ${err}`);
+			}
+
+			const persistentlyStoredGames = JSON.parse(data);
+
+			persistentlyStoredGames.allGames.map(game => {
+				if (game.name === gameName) {
+					const gameIndex = persistentlyStoredGames.allGames.indexOf(game);
+					persistentlyStoredGames.allGames.splice(gameIndex, 1);
+				}
+			});
+
+			const writingData = JSON.stringify(persistentlyStoredGames);
+
+			fs.writeFile('./games.json', writingData, 'utf-8', (err) => {
+				if (err) {
+					console.log(`Error writing file: ${err}`);
+				}
+				else {
+					console.log('Game removed successfully!');
+				}
+
+			});
+
 		});
+
 
 		// All that is left is to delete the game from 'games.json', similarly to how you add a game above.
 
