@@ -1,5 +1,6 @@
 {
     "lookingForGameCommand": "lfg",
     "millisecondsBeforeLobbyReset": 1800000,
-    "botManagerRoleId": "915647770503835659"
+    "botManagerRoleId": "915647770503835659",
+    "maximumOptionCharacters": 200
 }
