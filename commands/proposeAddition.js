@@ -4,6 +4,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 // const { maximumReplyCharacters } = require('../constants.json');
 const { normalisesOptionInput } = require('../utilities/normalisesOptionInput');
 
+let positiveVotes = 0;
+
 // Displays all available games. In the future categories may be added.
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -11,7 +13,7 @@ module.exports = {
 		.setDescription('Suggest a game to be added.')
 		.addStringOption(option =>
 			option
-				.setName('game')
+				.setName('name')
 				.setDescription('Start typing the game you are looking to play and send it.')
 				.setRequired(true),
 		)
@@ -24,7 +26,33 @@ module.exports = {
 
 		const proposedGame = normalisesOptionInput(interaction.options._hoistedOptions[0].value);
 		const numberOfPlayers = normalisesOptionInput(interaction.options._hoistedOptions[1].value);
-		await interaction.reply(`${interaction.user} proposes __**the addition of ${proposedGame}**__ with maximum number of players - __**${numberOfPlayers}**__`);
+		proposal = await interaction.reply({content: `${interaction.user} proposes __**the addition of ${proposedGame}**__ with maximum number of players - __**${numberOfPlayers}**__`, fetchReply: true});
+		proposal.react('✅');
+		proposal.react('❌');
+
+		
+
+		const filter = (reaction, user) => {
+			return reaction.emoji.name === '✅';
+		};
+		
+		const collector = proposal.createReactionCollector({ filter, time: 15000 });
+		
+		collector.on('collect', (reaction, user) => {
+			positiveVotes++;
+			console.log(positiveVotes);
+			// console.log(reaction);
+		});
+
+		collector.on('dispose', (reaction, user) => {
+			positiveVotes--;
+			console.log(positiveVotes);
+			// console.log(reaction);
+		});
+
+
+
+
 
 	},
 };
