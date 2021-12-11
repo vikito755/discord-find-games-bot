@@ -1,10 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { botManagerRoleId } = require('../constants.json');
 const { GameStorage } = require('../initialisation/GameStorage');
-
-// GameStorage
-// const { lfgCommand } = require('../commands/lookingForGame');
-
+const { normalisesOptionInput } = require('../utilities/normalisesOptionInput');
 
 // Allows admin to add a game option.
 module.exports = {
@@ -24,8 +21,8 @@ module.exports = {
 		const userHasRole = interaction.member._roles.includes(botManagerRoleId);
 		if (userHasRole) {
 
-			const addedGameName = interaction.options._hoistedOptions[0].value;
-			const maxPlayers = interaction.options._hoistedOptions[1].value;
+			const addedGameName = normalisesOptionInput(interaction.options._hoistedOptions[0].value);
+			const maxPlayers = normalisesOptionInput(interaction.options._hoistedOptions[1].value);
 			GameStorage.addGame(addedGameName, maxPlayers);
 			await interaction.reply('Game added by a user with a protected role.');
 		}

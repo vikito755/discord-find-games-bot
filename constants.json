@@ -1,6 +1,11 @@
 {
     "lookingForGameCommand": "lfg",
     "millisecondsBeforeLobbyReset": 1800000,
+    "votingTime": 86400000,
     "botManagerRoleId": "915647770503835659",
-    "maximumOptionCharacters": 200
+    "maximumOptionCharacters": 200,
+    "positiveVoteEmoji": "✅",
+    "negativeVoteEmoji": "❌",
+    "percentageOfreactionsNeeded": 50,
+    "maxGameProposalPerCommand": 10
 }
