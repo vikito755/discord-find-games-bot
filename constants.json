@@ -1,5 +1,6 @@
 {
     "lookingForGameCommand": "lfg",
+    "communityAddGame": "community_add_game",
     "millisecondsBeforeLobbyReset": 1800000,
     "votingTime": 86400000,
     "botManagerRoleId": "915647770503835659",
