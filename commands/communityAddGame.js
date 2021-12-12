@@ -1,7 +1,8 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { GameStorage } = require('../initialisation/GameStorage');
 const { normalisesOptionInput } = require('../utilities/normalisesOptionInput');
-const { positiveVoteEmoji, negativeVoteEmoji, percentageOfreactionsNeeded, votingTime, communityAddGame } = require('../constants.json')
+const { positiveVoteEmoji, negativeVoteEmoji, percentageOfreactionsNeeded, votingTime, communityAddGame } = require('../constants.json');
+const { ReactionCollector } = require('discord.js');
 let reactionEmojis = [ positiveVoteEmoji, negativeVoteEmoji];
 
 // Displays all available games. In the future categories may be added.
@@ -28,13 +29,16 @@ module.exports = {
 		proposal.react(positiveVoteEmoji);
 		proposal.react(negativeVoteEmoji);
 
-		const votesNeeded =  Math.ceil((percentageOfreactionsNeeded/100) * proposal.guild.memberCount);
+		const votesNeeded = Math.ceil((percentageOfreactionsNeeded/100) * proposal.guild.memberCount);
 
 		const filter = (reaction) => {
 			return reactionEmojis.includes(reaction.emoji.name);
 		};
-
+		
 		const votesCollector = proposal.createReactionCollector({ filter, time: votingTime });
+
+		// const votesCollector = new ReactionCollector({})
+
 		votesCollector.on('collect', (reaction) => {
 			if (reaction.count >= votesNeeded) {
 				votesCollector.stop();
