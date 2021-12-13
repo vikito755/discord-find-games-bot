@@ -1,13 +1,13 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { GameStorage } = require('../initialisation/GameStorage');
 const { normalisesOptionInput } = require('../utilities/normalisesOptionInput');
-const { positiveVoteEmoji, negativeVoteEmoji, percentageOfreactionsNeeded, votingTime, communityAddGame } = require('../constants.json');
+const { positiveVoteEmoji, negativeVoteEmoji, percentageOfreactionsNeeded, votingTime } = require('../constants.json');
 const reactionEmojis = [ positiveVoteEmoji, negativeVoteEmoji];
 
 // Displays all available games. In the future categories may be added.
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName(communityAddGame)
+		.setName('community_remove_game')
 		.setDescription('Suggest a game to be added.')
 		.addStringOption(option =>
 			option
@@ -32,7 +32,6 @@ module.exports = {
 		const maxVotes = (Math.ceil((percentageOfreactionsNeeded / 100) * proposal.guild.memberCount)) * 2;
 
 		const filter = reaction => {
-			// console.log(reactionEmojis.includes(reaction.emoji.name));
 			return reactionEmojis.includes(reaction.emoji.name);
 		};
 

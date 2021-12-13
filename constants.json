@@ -1,12 +1,10 @@
 {
     "lookingForGameCommand": "lfg",
-    "communityAddGame": "community_add_game",
     "millisecondsBeforeLobbyReset": 1800000,
-    "votingTime": 86400000,
+    "timeForVoting": 86400000,
     "botManagerRoleId": "915647770503835659",
     "maximumOptionCharacters": 200,
     "positiveVoteEmoji": "✅",
     "negativeVoteEmoji": "❌",
-    "percentageOfreactionsNeeded": 35,
-    "maxGameProposalPerCommand": 10
+    "percentageOfreactionsNeeded": 35
 }
