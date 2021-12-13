@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { GameStorage } = require('../initialisation/GameStorage');
 const { normalisesOptionInput } = require('../utilities/normalisesOptionInput');
-const { positiveVoteEmoji, negativeVoteEmoji, percentageOfreactionsNeeded, votingTime } = require('../constants.json');
+const { positiveVoteEmoji, negativeVoteEmoji, percentageOfreactionsNeeded, timeForVoting } = require('../constants.json');
 const reactionEmojis = [ positiveVoteEmoji, negativeVoteEmoji];
 
 // Displays all available games. In the future categories may be added.
@@ -13,18 +13,13 @@ module.exports = {
 			option
 				.setName('name')
 				.setDescription('The full name of the game you propose to be added.')
-				.setRequired(true),
-		)
-		.addIntegerOption(option =>
-			option.setName('max_players')
-				.setDescription('The number of people that can play the game\'s most popular game mode.')
+				.setAutocomplete(true)
 				.setRequired(true),
 		),
 	async execute(interaction) {
 
 		const proposedGame = normalisesOptionInput(interaction.options._hoistedOptions[0].value);
-		const numberOfPlayers = normalisesOptionInput(interaction.options._hoistedOptions[1].value);
-		const proposal = await interaction.reply({ content: `${interaction.user} proposes __**the addition of ${proposedGame}**__ with maximum number of players - __**${numberOfPlayers}**__`, fetchReply: true });
+		const proposal = await interaction.reply({ content: `${interaction.user} proposes the __**removal**__ of **~~${proposedGame}~~** from the game list.`, fetchReply: true });
 		proposal.react(positiveVoteEmoji);
 		proposal.react(negativeVoteEmoji);
 
@@ -35,27 +30,24 @@ module.exports = {
 			return reactionEmojis.includes(reaction.emoji.name);
 		};
 
-
-		proposal.awaitReactions({ filter, max: maxVotes, time: votingTime, errors: ['time'] })
+		proposal.awaitReactions({ filter, max: maxVotes, time: timeForVoting, errors: ['time'] })
 			.then(reactions => {
 				const positiveReactionsCount = reactions.get(positiveVoteEmoji).count;
 				const negativeReactionsCount = reactions.get(negativeVoteEmoji).count;
 
 				if (positiveReactionsCount > negativeReactionsCount) {
-					GameStorage.addGame(proposedGame, numberOfPlayers);
-					interaction.channel.send(`__**${proposedGame}**__ was __**added**__ by community voting with ${positiveReactionsCount} votes.`);
+					GameStorage.removeGame(proposedGame);
+					interaction.channel.send(`__**${proposedGame}**__ was __**removed**__ by community voting with ${positiveReactionsCount} votes.`);
 				}
 				else if (positiveReactionsCount < negativeReactionsCount) {
-					interaction.channel.send(`__**${proposedGame}**__ was __**declined**__ by community voting with ${negativeReactionsCount} votes.`);
+					interaction.channel.send(`__**${proposedGame}**__ was __**kept**__ in the list by community voting with ${negativeReactionsCount} votes.`);
 				}
 				else if (positiveReactionsCount === negativeReactionsCount) {
-				// console.log(reactions);
-					interaction.channel.send(`__**${proposedGame}**__ is tied the game was not added.`);
+					interaction.channel.send(`The vote for __**${proposedGame}**__ was tied the game was kept.`);
 				}
 			})
 			.catch(() => {
 				interaction.channel.send(`The time to vote on __**${proposedGame}**__ ran out, the vote is void.`);
 			});
-
 	},
 };
