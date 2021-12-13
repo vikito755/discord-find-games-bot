@@ -1,1 +1,16 @@
-{"allGames":[{"name":"Dota 2","maxPlayers":"5"},{"name":"CS: GO","maxPlayers":"5"},{"name":"Rocket League","maxPlayers":"3"}]}
+{
+    "allGames": [
+        {
+            "name": "Dota 2",
+            "maxPlayers": 5
+        },
+        {
+            "name": "CS: GO",
+            "maxPlayers": 5
+        },
+        {
+            "name": "Rocket league",
+            "maxPlayers": 3
+        }
+    ]
+}

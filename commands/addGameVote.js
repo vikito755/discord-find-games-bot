@@ -7,7 +7,7 @@ const reactionEmojis = [ positiveVoteEmoji, negativeVoteEmoji];
 // Displays all available games. In the future categories may be added.
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('add_vote_game')
+		.setName('vote_add_game')
 		.setDescription('Suggest a game to be added.')
 		.addStringOption(option =>
 			option
@@ -29,7 +29,7 @@ module.exports = {
 		proposal.react(negativeVoteEmoji);
 
 		// Max votes calculated by a percentage of the current member count in the server times 2 (for both options).
-		const maxVotes = (Math.ceil((percentageOfreactionsNeeded / 100) * proposal.guild.memberCount)) * 2;
+		const maxVotes = ((Math.ceil((percentageOfreactionsNeeded / 100) * proposal.guild.memberCount)) * 2) + 1;
 
 		const filter = reaction => {
 			return reactionEmojis.includes(reaction.emoji.name);
