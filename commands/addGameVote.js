@@ -7,7 +7,7 @@ const reactionEmojis = [ positiveVoteEmoji, negativeVoteEmoji];
 // Displays all available games. In the future categories may be added.
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('community_add_game')
+		.setName('add_vote_game')
 		.setDescription('Suggest a game to be added.')
 		.addStringOption(option =>
 			option
