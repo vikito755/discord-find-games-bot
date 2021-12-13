@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { botManagerRoleId } = require('../constants.json');
 const { GameStorage } = require('../initialisation/GameStorage');
 const { normalisesOptionInput } = require('../utilities/normalisesOptionInput');
+const { maxNumberOfGames } = require('../constants.json');
 
 // Allows admin to add a game option.
 module.exports = {
@@ -18,16 +19,21 @@ module.exports = {
 				.setRequired(true),
 		),
 	async execute(interaction) {
-		const userHasRole = interaction.member._roles.includes(botManagerRoleId);
-		if (userHasRole) {
+		if (GameStorage.gameOptions.length < maxNumberOfGames) {
+			const userHasRole = interaction.member._roles.includes(botManagerRoleId);
+			if (userHasRole) {
 
-			const addedGameName = normalisesOptionInput(interaction.options._hoistedOptions[0].value);
-			const maxPlayers = normalisesOptionInput(interaction.options._hoistedOptions[1].value);
-			GameStorage.addGame(addedGameName, maxPlayers);
-			await interaction.reply('Game added by a user with a protected role.');
+				const addedGameName = normalisesOptionInput(interaction.options._hoistedOptions[0].value);
+				const maxPlayers = normalisesOptionInput(interaction.options._hoistedOptions[1].value);
+				GameStorage.addGame(addedGameName, maxPlayers);
+				await interaction.reply('Game added by a user with a protected role.');
+			}
+			else {
+				await interaction.reply({ content: 'Sorry, you don\'t have the role to add games.', ephemeral: true });
+			}
 		}
 		else {
-			await interaction.reply({ content: 'Sorry, you don\'t have the role to add games.', ephemeral: true });
+			await interaction.reply({ content: `The max number of ${maxNumberOfGames} games was reached, please remove a game before adding a new one.`, ephemeral: true });
 		}
 	},
 };

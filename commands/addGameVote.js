@@ -3,6 +3,7 @@ const { GameStorage } = require('../initialisation/GameStorage');
 const { normalisesOptionInput } = require('../utilities/normalisesOptionInput');
 const { positiveVoteEmoji, negativeVoteEmoji, percentageOfreactionsNeeded, timeForVoting } = require('../constants.json');
 const reactionEmojis = [ positiveVoteEmoji, negativeVoteEmoji];
+const { maxNumberOfGames } = require('../constants.json');
 
 // Displays all available games. In the future categories may be added.
 module.exports = {
@@ -22,37 +23,43 @@ module.exports = {
 		),
 	async execute(interaction) {
 
-		const proposedGame = normalisesOptionInput(interaction.options._hoistedOptions[0].value);
-		const numberOfPlayers = normalisesOptionInput(interaction.options._hoistedOptions[1].value);
-		const proposal = await interaction.reply({ content: `${interaction.user} proposes __**the addition of ${proposedGame}**__ with maximum number of players - __**${numberOfPlayers}**__`, fetchReply: true });
-		proposal.react(positiveVoteEmoji);
-		proposal.react(negativeVoteEmoji);
+		if (GameStorage.gameOptions.length < maxNumberOfGames) {
 
-		// Max votes calculated by a percentage of the current member count in the server times 2 (for both options).
-		const maxVotes = ((Math.ceil((percentageOfreactionsNeeded / 100) * proposal.guild.memberCount)) * 2) + 1;
+			const proposedGame = normalisesOptionInput(interaction.options._hoistedOptions[0].value);
+			const numberOfPlayers = normalisesOptionInput(interaction.options._hoistedOptions[1].value);
+			const proposal = await interaction.reply({ content: `${interaction.user} proposes __**the addition of ${proposedGame}**__ with maximum number of players - __**${numberOfPlayers}**__`, fetchReply: true });
+			proposal.react(positiveVoteEmoji);
+			proposal.react(negativeVoteEmoji);
 
-		const filter = reaction => {
-			return reactionEmojis.includes(reaction.emoji.name);
-		};
+			// Max votes calculated by a percentage of the current member count in the server times 2 (for both options).
+			const maxVotes = ((Math.ceil((percentageOfreactionsNeeded / 100) * proposal.guild.memberCount)) * 2) + 1;
 
-		proposal.awaitReactions({ filter, max: maxVotes, time: timeForVoting, errors: ['time'] })
-			.then(reactions => {
-				const positiveReactionsCount = reactions.get(positiveVoteEmoji).count;
-				const negativeReactionsCount = reactions.get(negativeVoteEmoji).count;
+			const filter = reaction => {
+				return reactionEmojis.includes(reaction.emoji.name);
+			};
 
-				if (positiveReactionsCount > negativeReactionsCount) {
-					GameStorage.addGame(proposedGame, numberOfPlayers);
-					interaction.channel.send(`__**${proposedGame}**__ was __**added**__ by community voting with ${positiveReactionsCount} votes.`);
-				}
-				else if (positiveReactionsCount < negativeReactionsCount) {
-					interaction.channel.send(`__**${proposedGame}**__ was __**declined**__ by community voting with ${negativeReactionsCount} votes.`);
-				}
-				else if (positiveReactionsCount === negativeReactionsCount) {
-					interaction.channel.send(`__**${proposedGame}**__ is tied the game was not added.`);
-				}
-			})
-			.catch(() => {
-				interaction.channel.send(`The time to vote on __**${proposedGame}**__ ran out, the vote is void.`);
-			});
+			proposal.awaitReactions({ filter, max: maxVotes, time: timeForVoting, errors: ['time'] })
+				.then(reactions => {
+					const positiveReactionsCount = reactions.get(positiveVoteEmoji).count;
+					const negativeReactionsCount = reactions.get(negativeVoteEmoji).count;
+
+					if (positiveReactionsCount > negativeReactionsCount) {
+						GameStorage.addGame(proposedGame, numberOfPlayers);
+						interaction.channel.send(`__**${proposedGame}**__ was __**added**__ by community voting with ${positiveReactionsCount} votes.`);
+					}
+					else if (positiveReactionsCount < negativeReactionsCount) {
+						interaction.channel.send(`__**${proposedGame}**__ was __**declined**__ by community voting with ${negativeReactionsCount} votes.`);
+					}
+					else if (positiveReactionsCount === negativeReactionsCount) {
+						interaction.channel.send(`__**${proposedGame}**__ is tied the game was not added.`);
+					}
+				})
+				.catch(() => {
+					interaction.channel.send(`The time to vote on __**${proposedGame}**__ ran out, the vote is void.`);
+				});
+		}
+		else {
+			await interaction.reply({ content: `The max number of ${maxNumberOfGames} games was reached, please remove a game before adding a new one.`, ephemeral: true });
+		}
 	},
 };

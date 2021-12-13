@@ -6,5 +6,6 @@
     "maximumOptionCharacters": 200,
     "positiveVoteEmoji": "✅",
     "negativeVoteEmoji": "❌",
-    "percentageOfreactionsNeeded": 35
+    "percentageOfreactionsNeeded": 35,
+    "maxNumberOfGames": 25
 }
