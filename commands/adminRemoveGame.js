@@ -5,7 +5,7 @@ const { GameStorage } = require('../initialisation/GameStorage');
 // Allows admin to remove a game option.
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('remove_game')
+		.setName('admin_remove_game')
 		.setDescription('Remove a game from the list of games.')
 		.addStringOption(option =>
 			option.setName('game')

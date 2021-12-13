@@ -6,7 +6,7 @@ const { normalisesOptionInput } = require('../utilities/normalisesOptionInput');
 // Allows admin to add a game option.
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('add_game')
+		.setName('admin_add_game')
 		.setDescription('Add a game to the list of games.')
 		.addStringOption(option =>
 			option.setName('game')
