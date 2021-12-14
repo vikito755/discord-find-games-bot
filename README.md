@@ -49,33 +49,20 @@ When using the bot, rename the "example-config.json" to "config.json" and set th
 To find the "guildId", turn on Discord developer mode (in the app), right click the server icon on the left and copy that id, that is "guildId".
 
 1. Rename the "example-config.json" file to "config.json", replace with appropriate variables.
-2. Create an invite link for the bot with the "bot" and "application.commands" permissions in the 'Oauth2" tab in the Discord developer portal dashboard.
-3. Run "node deploy.js", to make all commands usable.
-- Every time the "deploy.js" file is run, the new commands become active, no need for restart (tested on Discord API version 9).
-4. Run "node botStart.js". To make the bot active.
+- clientId - is taken from the discord developer dashboard.
+- token - your secret token from the Discord dashboard DO NOT REVEAL IT to anyone. It is like a password to your instance of the bot.
+- guildId - enter Discord's developer mod, right click on the server icon where you intend to use the bot. Copy the ID and paste it in.
+2. In "constants.json":
+- In the line: "botManagerRoleId": "915647770503835659", change "915647770503835659" with the ID of the role that you will be managing the bot. You can do that by being in Discord developer mode, click on a user that has this role, right click the role and copy the ID.
+- You can change  "millisecondsBeforeLobbyReset": 1800000 and "timeForVoting": 86400000 to values you'd like the lobbies to be active for and adjust the time for voting on new games (the values are in millisecond).
+3. Create an invite link for the bot with the "bot" and "application.commands" permissions in the 'Oauth2" tab in the Discord developer portal dashboard.
+4. Run "npm install" (to install all depencies).
+5. In the terminal where the bot will run do "npm run startBot"
+
+
 
 To invite the bot (this may change if the bot needs more or less permissions):
 https://discord.com/api/oauth2/authorize?client_id=907048337155432479&permissions=0&scope=bot%20applications.commands
-
-
-Bot invite link (add commands here):
-https://discordjs.guide/creating-your-bot/creating-commands.html#the-problem-with-if-else-if
-
-
-<h2>TODO:</h2>
-
-<h2>Daily dues</h2>
-- Preload the games from the "games.json".
-- For each game create a command
- . When the user types "/lf_cs_go" or "lf CS: GO" (more likely as the names will be generated according to the "games.json")
- . Each command needs to:
- 1. Put the name of the user who wrote it into an array.
-    - This array will be used when another user types it. (How do you avoid multiple tags)
-    - This array will reset after a minute.
-    - The chat for these commands will have 5 minutes timeout to avoid spam.
- 2. Start a 2 minute minute timer (afte which the array resets, the time to reset might need adjustments).
- 3. Send a message tagging the user who invoked the command and the other users listed in the array.
- 4. Reset the timer.
 
 
  Try to do it with 1 command at first, then scale it up with a for loop.
