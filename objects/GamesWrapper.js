@@ -22,31 +22,39 @@ class GamesWrapper {
 
 		fs.readFile('./games.json', 'utf-8', (err, data) => {
 			if (err) {
-				console.log(`While adding the game: ${err}`);
+				console.log(`Error while adding the game: ${err}`);
 			}
 
 			const persistentlyStoredGames = JSON.parse(data);
 
-			persistentlyStoredGames.allGames.push(new Game({ name: gameName, maxPlayers: maxPlayers }));
+			const gameIsAlreadyAdded = persistentlyStoredGames.allGames.some(game => game.name === gameName);
+			if (gameIsAlreadyAdded) {
+				console.log('Game is already in the list.');
+				return;
+			}
+
+			else {
+
+				persistentlyStoredGames.allGames.push(new Game({ name: gameName, maxPlayers: maxPlayers }));
 
 
-			const writingData = JSON.stringify(persistentlyStoredGames);
+				const writingData = JSON.stringify(persistentlyStoredGames);
 
-			fs.writeFile('./games.json', writingData, 'utf-8', (err) => {
-				if (err) {
-					console.log(`Error adding game: ${err}`);
-				}
-				else {
-					console.log('Game added successfully!');
-				}
+				fs.writeFile('./games.json', writingData, 'utf-8', (err) => {
+					if (err) {
+						console.log(`Error adding game: ${err}`);
+					}
+					else {
+						console.log('Game added successfully!');
+					}
 
-			});
+				});
 
+				this.gameOptions.push(gameName);
+				this.lobbies.push(new GameLobby({ game: gameName, maxPlayers: maxPlayers }));
+			}
 		});
 
-
-		this.gameOptions.push(gameName);
-		this.lobbies.push(new GameLobby({ game: gameName, maxPlayers: maxPlayers }));
 
 	}
 
