@@ -1,10 +1,12 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
+const { createDatabaseCollection } = require('./database/createDatabaseCollection');
+const { dropDatabaseCollection } = require('./database/dropDatabaseCollection');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
+const discordClient = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS] });
 
-client.commands = new Collection();
+discordClient.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
@@ -13,30 +15,39 @@ const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args));
+		discordClient.once(event.name, (...args) => event.execute(...args));
 	}
 	else {
-		client.on(event.name, (...args) => event.execute(...args));
+		discordClient.on(event.name, (...args) => event.execute(...args));
 	}
 }
 
 // Loading up the commands from the "commands directory."
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	client.commands.set(command.data.name, command);
+	discordClient.commands.set(command.data.name, command);
 }
 
 // Message to let us know the bot loads up.
-client.once('ready', () => {
+discordClient.once('ready', () => {
 	console.log('Ready!');
 });
 
+discordClient.on('guildCreate', async interaction => {
+	const serverId = interaction.id;
+	createDatabaseCollection(serverId);
+});
+
+discordClient.on('guildDelete', async interaction => {
+	const serverId = interaction.id;
+	dropDatabaseCollection(serverId);
+});
 
 // Dynamic execution of commands, checking if a message is command and if it has an error sends a generic error message.
-client.on('interactionCreate', async interaction => {
+discordClient.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
 
-	const command = client.commands.get(interaction.commandName);
+	const command = discordClient.commands.get(interaction.commandName);
 
 	if (!command) return;
 
@@ -51,4 +62,4 @@ client.on('interactionCreate', async interaction => {
 
 // Login the bot to Discord, the token is very sensitive data, make sure the "config.json" file is secure.
 // If the credentials are compromised immediately reset them from the Discord developer portal and re-enter them in the "config.json" file.
-client.login(token);
+discordClient.login(token);

@@ -31,6 +31,13 @@ Each "game" is an object with 3 parameters (everything is automated, nothins is 
 When using the bot, rename the "example-config.json" to "config.json" and set the variables according to the values in your Discord developer dashboard.
 To find the "guildId", turn on Discord developer mode (in the app), right click the server icon on the left and copy that id, that is "guildId".
 
+<h3>Mongo DB setup:</h3>
+In "config.json" change the credentials and "mongoDbUsername" and "mongoDbPassword" to the credentials that will be used. Set "databaseName" to the name of the database or cluster you will be using.
+
+<br>
+Further running
+<br>
+
 1. Rename the "example-config.json" file to "config.json", replace with appropriate variables.
 - clientId - is taken from the discord developer dashboard.
 - token - your secret token from the Discord dashboard DO NOT REVEAL IT to anyone. It is like a password to your instance of the bot.
@@ -43,6 +50,8 @@ To find the "guildId", turn on Discord developer mode (in the app), right click 
 5. In the terminal where the bot will run do "npm run startBot"
 
 
+<h1>Important:</h1>
+The bot needs to be in at least 1 server or it returns an error that it doesn't have acces to any servers (it doesn't look to affect how it runs).
 
 To invite the bot (this may change if the bot needs more or less permissions):
 https://discord.com/api/oauth2/authorize?client_id=907048337155432479&permissions=0&scope=bot%20applications.commands
