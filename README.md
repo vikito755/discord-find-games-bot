@@ -6,11 +6,6 @@ Discord bot to help people find people to play video games with.
 Discord js docs:
 https://discord.js.org/#/docs/main/stable/class/CommandInteractionOptionResolver
 
-latest issue resolvers (4.12.2021)
-https://www.reddit.com/r/Discord_Bots/comments/pmcjh3/discordapierror10002_unknown_application/
-
-https://discordjs.guide/interactions/registering-slash-commands.html#guild-commands
-
 <h2>User flow:</h2>
 Each "game" is an object with 3 parameters (everything is automated, nothins is imputted by the user):
 - Name (string)
@@ -52,20 +47,6 @@ To find the "guildId", turn on Discord developer mode (in the app), right click 
 To invite the bot (this may change if the bot needs more or less permissions):
 https://discord.com/api/oauth2/authorize?client_id=907048337155432479&permissions=0&scope=bot%20applications.commands
 
-
- Try to do it with 1 command at first, then scale it up with a for loop.
-
-<h3> Later development notes</h3>
-
-- Add it in the voting and changes scripts later
- Later:
-  - Commands for the admins to add and remove games, from the "games.json" file or the future database.
-  - Community voting to add games, to sthe "games.json" file or the future database.
-
-<h2>Side notes:</h2>
-- Limit the bot to 1 channel and have a slow mode for 5 minutes, to avoid spam.
-
-
 <h2>Issues and fixes:</h2>
 - The game module loads bot on "node deploy.js" and on "botStart.js". Which can be cumbersome if 100s of games are added.
 - Make sure that 2 games with the same name can't be added.
@@ -86,8 +67,6 @@ https://discord.com/api/oauth2/authorize?client_id=907048337155432479&permission
 
 <h2>Files:</h2>
 constants.json - constant variables I'd like to use across files.
-
-
 
 <h2>Testing:</h2>
 - Test if the lobbies reset after 30 minutes.
