@@ -35,13 +35,11 @@ discordClient.once('ready', () => {
 
 discordClient.on('guildCreate', async interaction => {
 	const serverId = interaction.id;
-	console.log(`Bot JOINED server with id: ${serverId}`);
 	createDatabaseCollection(serverId);
 });
 
 discordClient.on('guildDelete', async interaction => {
 	const serverId = interaction.id;
-	console.log(`Bot LEFT server with id: ${serverId}`);
 	dropDatabaseCollection(serverId);
 });
 

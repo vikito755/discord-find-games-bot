@@ -57,12 +57,13 @@ To invite the bot (this may change if the bot needs more or less permissions):
 https://discord.com/api/oauth2/authorize?client_id=907048337155432479&permissions=0&scope=bot%20applications.commands
 
 <h2>Issues and fixes:</h2>
-- The game module loads bot on "node deploy.js" and on "botStart.js". Which can be cumbersome if 100s of games are added.
-- Make sure that 2 games with the same name can't be added.
+- The game module loads bot on "node deploy.js" and on "botStart.js". Which can be cumbersome if 100s of games are added. There are currently maximum 25 games per server which should provide a reasonable loading time.
 - For the sake of "objects/GameWrapper.js", rewrite the "games.json file so there are only game objects without the array all games. So you can just write to it without needing to read the file.
 - In 'events/gameAutocomplets.js', make it so the user sees the most relevant option as they type. Currently if the user types he sees no options.
 - Overcome the limit of 25 games for autocomplete.
 
+- The commads with a protected role will need to be re-written, so they automatically detect the admins of the server role.
+- There was a change in "deploy.js" that made this line in 'config.js' redundant so it was removed (commiting this to remember) '"guildId": "907594308583047188",'
 
 <h2>Features to be considered:</h2>
 - Get the number of active users with a role, how much growth it has, how many people were looking for a game. So you can figure out which games are most wanted and played.
