@@ -1,22 +1,10 @@
 # discord-find-games-discord-bot
+STABLE V1
+
 Discord bot to help people find people to play video games with.
 
 Discord js docs:
 https://discord.js.org/#/docs/main/stable/class/CommandInteractionOptionResolver
-
-
-I need to come back to this (user interaction and guild IDs):
-https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot
-
-More complex command options: https://discordjs.guide/interactions/registering-slash-commands.html#subcommands
-
-Discord guide progress - https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot
-
-https://discordjs.guide/popular-topics/faq.html#how-do-i-kick-a-user
-
-
-
-
 
 latest issue resolvers (4.12.2021)
 https://www.reddit.com/r/Discord_Bots/comments/pmcjh3/discordapierror10002_unknown_application/
