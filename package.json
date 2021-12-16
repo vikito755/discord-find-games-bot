@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Discord bot helping people find other people looking to play video games.",
   "main": "botStart.js",
+  "engines" : 
+  { "node" : "17.x" },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "startBot": "node deploy.js && node botStart.js "
