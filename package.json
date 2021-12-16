@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "startBot": "node deploy.js && node botStart.js "
+    "start": "node deploy.js && node botStart.js "
   },
   "lint-staged": {
     "*.js": [
